@@ -4,10 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Jira.Domain.Entities.ProjectManagement;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
+using Admin.DAL.Interfaces;
 
 namespace Microservice.Admin.Persistence
 {
-    public partial class JiraDbContext : DbContext
+    public partial class JiraDbContext : DbContext, IJiraDbContext
     {
         public JiraDbContext()
         {
@@ -31,20 +32,20 @@ namespace Microservice.Admin.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.HasPostgresEnum("graphql", "cardinality", new[] { "ONE", "MANY" })
-            //    .HasPostgresEnum("graphql", "column_order_direction", new[] { "asc", "desc" })
-            //    .HasPostgresEnum("graphql", "comparison_op", new[] { "=", "<", "<=", "<>", ">=", ">", "in" })
-            //    .HasPostgresEnum("graphql", "field_meta_kind", new[] { "Constant", "Query.collection", "Column", "Relationship.toMany", "Relationship.toOne", "OrderBy.Column", "Filter.Column", "Function", "Mutation.insert", "Mutation.delete", "Mutation.update", "UpdateSetArg", "ObjectsArg", "AtMostArg", "Query.heartbeat", "Query.__schema", "Query.__type", "__Typename" })
-            //    .HasPostgresEnum("graphql", "meta_kind", new[] { "__Schema", "__Type", "__TypeKind", "__Field", "__InputValue", "__EnumValue", "__Directive", "__DirectiveLocation", "ID", "Float", "String", "Int", "Boolean", "Date", "Time", "Datetime", "BigInt", "UUID", "JSON", "OrderByDirection", "PageInfo", "Cursor", "Query", "Mutation", "Interface", "Node", "Edge", "Connection", "OrderBy", "FilterEntity", "InsertNode", "UpdateNode", "InsertNodeResponse", "UpdateNodeResponse", "DeleteNodeResponse", "FilterType", "Enum" })
-            //    .HasPostgresEnum("graphql", "type_kind", new[] { "SCALAR", "OBJECT", "INTERFACE", "UNION", "ENUM", "INPUT_OBJECT", "LIST", "NON_NULL" })
-            //    .HasPostgresEnum("pgsodium", "key_status", new[] { "default", "valid", "invalid", "expired" })
-            //    .HasPostgresEnum("pgsodium", "key_type", new[] { "aead-ietf", "aead-det" })
-            //    .HasPostgresExtension("extensions", "pg_graphql")
-            //    .HasPostgresExtension("extensions", "pg_stat_statements")
-            //    .HasPostgresExtension("extensions", "pgcrypto")
-            //    .HasPostgresExtension("extensions", "pgjwt")
-            //    .HasPostgresExtension("extensions", "uuid-ossp")
-            //    .HasPostgresExtension("pgsodium", "pgsodium");
+            modelBuilder.HasPostgresEnum("graphql", "cardinality", new[] { "ONE", "MANY" })
+                .HasPostgresEnum("graphql", "column_order_direction", new[] { "asc", "desc" })
+                .HasPostgresEnum("graphql", "comparison_op", new[] { "=", "<", "<=", "<>", ">=", ">", "in" })
+                .HasPostgresEnum("graphql", "field_meta_kind", new[] { "Constant", "Query.collection", "Column", "Relationship.toMany", "Relationship.toOne", "OrderBy.Column", "Filter.Column", "Function", "Mutation.insert", "Mutation.delete", "Mutation.update", "UpdateSetArg", "ObjectsArg", "AtMostArg", "Query.heartbeat", "Query.__schema", "Query.__type", "__Typename" })
+                .HasPostgresEnum("graphql", "meta_kind", new[] { "__Schema", "__Type", "__TypeKind", "__Field", "__InputValue", "__EnumValue", "__Directive", "__DirectiveLocation", "ID", "Float", "String", "Int", "Boolean", "Date", "Time", "Datetime", "BigInt", "UUID", "JSON", "OrderByDirection", "PageInfo", "Cursor", "Query", "Mutation", "Interface", "Node", "Edge", "Connection", "OrderBy", "FilterEntity", "InsertNode", "UpdateNode", "InsertNodeResponse", "UpdateNodeResponse", "DeleteNodeResponse", "FilterType", "Enum" })
+                .HasPostgresEnum("graphql", "type_kind", new[] { "SCALAR", "OBJECT", "INTERFACE", "UNION", "ENUM", "INPUT_OBJECT", "LIST", "NON_NULL" })
+                .HasPostgresEnum("pgsodium", "key_status", new[] { "default", "valid", "invalid", "expired" })
+                .HasPostgresEnum("pgsodium", "key_type", new[] { "aead-ietf", "aead-det" })
+                .HasPostgresExtension("extensions", "pg_graphql")
+                .HasPostgresExtension("extensions", "pg_stat_statements")
+                .HasPostgresExtension("extensions", "pgcrypto")
+                .HasPostgresExtension("extensions", "pgjwt")
+                .HasPostgresExtension("extensions", "uuid-ossp")
+                .HasPostgresExtension("pgsodium", "pgsodium");
 
             modelBuilder.Entity<Permission>(entity =>
             {

@@ -1,3 +1,5 @@
+using Admin;
+using Infrastructure.Jira.Supabase;
 using Microservice.Admin.Persistence;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -49,6 +51,11 @@ services.AddDbContext<JiraDbContext>(options =>
 });
 
 services.AddMemoryCache();
+
+
+services.AddJiraInfrastructure(config);
+services.AddAdminServices();
+
 
 
 // configure middlewares
