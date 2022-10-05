@@ -1,13 +1,16 @@
 ﻿using Admin.DTO;
 using Admin.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Admin.Teams.Queries;
+using Admin.Teams.Commands;
+using MediatR;
 
 namespace Microservice.Admin.Controllers
 {
     [ApiVersion("1.0")]
     [ApiController]
     [Route("{v:apiVersion}/[controller]/[action]")]
-    public class TeamsManagementController : Controller
+    public class TeamsManagementController : ApiControllerBase
     {
         private readonly ITeamService _teamService;
 
@@ -16,21 +19,39 @@ namespace Microservice.Admin.Controllers
             _teamService = teamService;
         }
 
+        /// <summary>
+        /// Fetches all teams
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-        [ActionName("Teams")]
+        [ActionName("teams")]
         [ProducesResponseType(200, Type = typeof(List<TeamDto>))]
-        public async Task<ActionResult<List<TeamDto>>> GetAllTeams()
+        public async Task<ActionResult<List<TeamDto>>> GetTeams()
         {
-            try
-            {
-                var teams = await _teamService.GetAllTeamsService();
-                return Ok(teams);
+            return await Mediator.Send(new GetTeamsQuery());
 
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-            }
         }
+
+        /// <summary>
+        /// Fetches all teams
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [ActionName("team")]
+        [ProducesResponseType(200, Type = typeof(List<TeamDto>))]
+        public async Task<ActionResult<TeamDto>> GetTeamById([FromQuery] GetTeamByIdQuery query)
+        {
+            return await Mediator.Send(query);
+        }
+
+        [HttpPost]
+        [ActionName("team")]
+        [ProducesResponseType(201)]
+        public async Task<ActionResult> CreateTeam([FromBody] CreateTeamQuery query)
+        {
+            var url = await Mediator.Send(query);
+            return Created(url, "Resouce created");
+        }
+
     }
 }

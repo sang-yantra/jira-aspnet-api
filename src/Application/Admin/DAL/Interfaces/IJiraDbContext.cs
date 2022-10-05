@@ -11,6 +11,8 @@ namespace Admin.DAL.Interfaces
     public interface IJiraDbContext
     {
         DbSet<Team> Teams { get; set; }
+
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
         
     }
 }

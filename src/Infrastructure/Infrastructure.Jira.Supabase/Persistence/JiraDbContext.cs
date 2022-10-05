@@ -29,7 +29,11 @@ namespace Microservice.Admin.Persistence
         public virtual DbSet<UserRole> UserRoles { get; set; } = null!;
         public virtual DbSet<UserRoleTeam> UserRoleTeams { get; set; } = null!;
 
-
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        {
+            var result = await base.SaveChangesAsync(cancellationToken);
+            return result;
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasPostgresEnum("graphql", "cardinality", new[] { "ONE", "MANY" })

@@ -11,7 +11,7 @@ namespace Admin.DTO
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Code { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
         public DateTime CreatedDatetime { get; set; }
         public string CreatedBy { get; set; }
         public DateTime UpdatedDatetime { get; set; }
