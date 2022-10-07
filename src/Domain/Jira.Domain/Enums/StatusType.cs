@@ -9,9 +9,7 @@ namespace Jira.Domain.Enums
     public enum StatusType
     {
         NEW,
-        Active,
-        Done,
-        Resolved
-
+        ACTIVE,
+        DONE
     }
 }

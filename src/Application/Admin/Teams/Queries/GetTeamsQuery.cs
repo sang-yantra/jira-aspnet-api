@@ -36,7 +36,7 @@ namespace Admin.Teams.Queries
                     UpdatedBy = team.UpdatedBy,
                     IsActive = team.IsActive ?? false,
                 })
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
 
 

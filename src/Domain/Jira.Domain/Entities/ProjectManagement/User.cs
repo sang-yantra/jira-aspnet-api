@@ -15,12 +15,12 @@ namespace Jira.Domain.Entities.ProjectManagement
         }
 
         public Guid Id { get; set; }
-        public string? Username { get; set; }
+        public string Username { get; set; }
         public string? Firstname { get; set; }
         public string? Middlename { get; set; }
         public string? Lastname { get; set; }
         public string? Alias { get; set; }
-        public string? Email { get; set; }
+        public string Email { get; set; }
         public DateTime? CreatedDatetime { get; set; }
         public DateTime? UpdatedDatetime { get; set; }
         public string? CreatedBy { get; set; }

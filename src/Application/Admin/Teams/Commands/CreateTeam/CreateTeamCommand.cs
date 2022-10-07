@@ -7,9 +7,9 @@ using Admin.DAL.Interfaces;
 using MediatR;
 using Jira.Domain.Entities.ProjectManagement;
 
-namespace Admin.Teams.Commands
+namespace Admin.Teams.Commands.CreateTeam
 {
-    public class CreateTeamQuery: IRequest<string>
+    public class CreateTeamCommand: IRequest<Team>
     {
         public string Name { get; set; }
         public string Code { get; set; }
@@ -21,15 +21,15 @@ namespace Admin.Teams.Commands
     }
 
 
-    public class CreateTeamQueryHandler : IRequestHandler<CreateTeamQuery, string>
+    public class CreateTeamCommandHandler : IRequestHandler<CreateTeamCommand, Team>
     {
         private readonly IJiraDbContext _context;
 
-        public CreateTeamQueryHandler(IJiraDbContext context)
+        public CreateTeamCommandHandler(IJiraDbContext context)
         {
             _context =  context;
         }
-        public async Task<string> Handle(CreateTeamQuery request, CancellationToken cancellationToken)
+        public async Task<Team> Handle(CreateTeamCommand request, CancellationToken cancellationToken)
         {
             Team team = new Team()
             {
@@ -47,7 +47,7 @@ namespace Admin.Teams.Commands
 
             _context.Teams.Add(team);
             await _context.SaveChangesAsync(cancellationToken);
-            return "/api/1/task/" + team.Id;
+            return team;
         }
     }
 }

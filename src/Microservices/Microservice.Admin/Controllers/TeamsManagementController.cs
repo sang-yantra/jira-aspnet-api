@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Admin.Teams.Queries;
 using Admin.Teams.Commands;
 using MediatR;
+using Admin.Teams.Commands.CreateTeam;
 
 namespace Microservice.Admin.Controllers
 {
@@ -44,14 +45,24 @@ namespace Microservice.Admin.Controllers
             return await Mediator.Send(query);
         }
 
+        /// <summary>
+        /// Saving a new team 
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpPost]
         [ActionName("team")]
         [ProducesResponseType(201)]
-        public async Task<ActionResult> CreateTeam([FromBody] CreateTeamQuery query)
+        public async Task<ActionResult> CreateTeam([FromBody] CreateTeamCommand query)
         {
-            var url = await Mediator.Send(query);
-            return Created(url, "Resouce created");
+            var team = await Mediator.Send(query);
+
+            return Created("Uri", team);
         }
+
+
+         
+        
 
     }
 }

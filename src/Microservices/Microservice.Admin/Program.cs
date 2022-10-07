@@ -1,8 +1,11 @@
 using Admin;
 using Infrastructure.Jira.Supabase;
+using Microservice.Admin.Filters;
 using Microservice.Admin.Persistence;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using FluentValidation.AspNetCore;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,8 +30,13 @@ services.AddApiVersioning(options =>
     options.DefaultApiVersion = new ApiVersion(1, 0);
     options.AssumeDefaultVersionWhenUnspecified = true;
 });
-services.AddControllers();
-services.AddEndpointsApiExplorer();
+services.AddControllers(options =>
+    options.Filters.Add<ApiExceptionFilterAttribute>());
+
+services.AddFluentValidationAutoValidation()
+    .AddFluentValidationClientsideAdapters()
+    ;
+
 services.AddSwaggerGen();
 services.AddHttpContextAccessor();
 services.AddCors(options =>
@@ -49,6 +57,9 @@ services.AddDbContext<JiraDbContext>(options =>
 {
     options.UseNpgsql(config.GetConnectionString("JiraSupabaseDb"));
 });
+
+
+
 
 services.AddMemoryCache();
 

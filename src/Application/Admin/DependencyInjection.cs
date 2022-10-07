@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MediatR;
 using System.Reflection;
+using FluentValidation;
 
 namespace Admin
 {
@@ -17,6 +18,7 @@ namespace Admin
     {
         public static IServiceCollection AddAdminServices(this IServiceCollection services)
         {
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddMediatR(Assembly.GetExecutingAssembly());
 
             /// services DI
