@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Jira.Domain.Entities.ProjectManagement;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
-using Admin.DAL.Interfaces;
+using Admin.Common.Interfaces;
 using System.Reflection;
 
 namespace Microservice.Admin.Persistence

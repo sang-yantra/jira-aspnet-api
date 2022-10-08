@@ -1,9 +1,9 @@
-﻿using Admin.DTO;
-using Admin.Services.Interfaces;
+﻿using Admin.Common;
 using Microsoft.AspNetCore.Mvc;
 using Admin.Teams.Queries;
 using Admin.Teams.Commands;
 using MediatR;
+using Admin.Teams;
 using Admin.Teams.Commands.CreateTeam;
 
 namespace Microservice.Admin.Controllers
@@ -13,12 +13,6 @@ namespace Microservice.Admin.Controllers
     [Route("{v:apiVersion}/[controller]/[action]")]
     public class TeamsManagementController : ApiControllerBase
     {
-        private readonly ITeamService _teamService;
-
-        public TeamsManagementController(ITeamService teamService)
-        {
-            _teamService = teamService;
-        }
 
         /// <summary>
         /// Fetches all teams

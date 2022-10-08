@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Admin.DAL.Interfaces;
 using MediatR;
 using Jira.Domain.Entities.ProjectManagement;
+using Admin.Common.Interfaces;
 
 namespace Admin.Teams.Commands.CreateTeam
 {

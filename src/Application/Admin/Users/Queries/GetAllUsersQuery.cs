@@ -1,5 +1,4 @@
-﻿using Admin.DAL.Interfaces;
-using Jira.Domain.Entities.ProjectManagement;
+﻿using Jira.Domain.Entities.ProjectManagement;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,7 +12,6 @@ namespace Admin.Users.Queries
 {
     public class GetAllUsersQuery: IRequest<List<UserDto>>
     {
-        public Guid? UserId { get; set; }
         public string? UserName { get; set; } 
         public string? Email { get; set; }
     }
@@ -27,7 +25,21 @@ namespace Admin.Users.Queries
         }
         public async Task<List<UserDto>> Handle(GetAllUsersQuery query, CancellationToken cancellationToken)
         {
-            var users = await _context.Users
+            IQueryable<User> getUsersQueryWhere;
+
+            if(query.UserName is null && query.Email is null)
+            {
+                getUsersQueryWhere = _context.Users;
+            }
+            else
+            {
+                getUsersQueryWhere = _context.Users
+                            .Where(x => x.Username.Contains(query.UserName) ||
+                            x.Email.Contains(query.Email));
+            }
+
+
+            var users = await getUsersQueryWhere                 
                             .Select(x => new UserDto()
                             {
                                 Id = x.Id,
@@ -44,29 +56,6 @@ namespace Admin.Users.Queries
 
             return users;
         }
-
-
-        public bool ApplyUserFilter(GetAllUsersQuery query, User user)
-        {
-            //// no filters
-            if(query.UserId == null && query.UserName == null && query.Email == null)
-            {
-                return true;
-            }
-            else //// with filters
-            {
-                if (query.UserId == user.Id) return true;
-                return user.Username.Contains(query.UserName ?? "") ||
-                    user.Email.Contains(query.Email);
-            }
-
-            
-        }
-
-        //public Expression<Func<User, bool>> ApplyFilters(User user, GetAllUsersQuery query)
-        //{
-        //    return Expression.Lambda
-        //}
 
     }
 

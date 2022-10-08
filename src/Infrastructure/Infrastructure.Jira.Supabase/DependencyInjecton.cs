@@ -1,4 +1,4 @@
-﻿using Admin.DAL.Interfaces;
+﻿using Admin.Common.Interfaces;
 using Microservice.Admin.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

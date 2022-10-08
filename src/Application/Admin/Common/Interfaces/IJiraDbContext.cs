@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Admin.DAL.Interfaces
+namespace Admin.Common.Interfaces
 {
     public interface IJiraDbContext
     {
