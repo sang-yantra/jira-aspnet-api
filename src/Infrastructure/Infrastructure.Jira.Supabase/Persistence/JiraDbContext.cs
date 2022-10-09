@@ -1,4 +1,4 @@
-﻿using Admin.Common.Interfaces;
+﻿using Common.Interfaces;
 using Jira.Domain.Entities.ProjectManagement;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
@@ -20,11 +20,13 @@ namespace Microservice.Admin.Persistence
         public virtual DbSet<Role> Roles { get; set; } = null!;
         public virtual DbSet<RolePermission> RolePermissions { get; set; } = null!;
         public virtual DbSet<RoleTeam> RoleTeams { get; set; } = null!;
+        public virtual DbSet<Sprint> Sprints { get; set; } = null!;
         public virtual DbSet<TaskInfo> TaskInfos { get; set; } = null!;
         public virtual DbSet<Team> Teams { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
         public virtual DbSet<UserRole> UserRoles { get; set; } = null!;
         public virtual DbSet<UserRoleTeam> UserRoleTeams { get; set; } = null!;
+        public virtual DbSet<UserStory> UserStories { get; set; } = null!;
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {

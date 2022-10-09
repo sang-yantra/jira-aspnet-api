@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Jira.Domain.Entities.ProjectManagement
+namespace Infrastructure.Jira.Supabase.Entities
 {
     /// <summary>
     /// Task table
@@ -29,6 +29,7 @@ namespace Jira.Domain.Entities.ProjectManagement
 
         public virtual Sprint? Sprint { get; set; }
         public virtual Team? Team { get; set; }
+        public virtual User1? User { get; set; }
         public virtual UserStory? UserStory { get; set; }
     }
 }

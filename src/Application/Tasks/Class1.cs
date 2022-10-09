@@ -1,4 +1,4 @@
-﻿namespace Common
+﻿namespace Tasks
 {
     public class Class1
     {
