@@ -1,11 +1,10 @@
 using Admin;
+using FluentValidation.AspNetCore;
 using Infrastructure.Jira.Supabase;
 using Microservice.Admin.Filters;
 using Microservice.Admin.Persistence;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using FluentValidation.AspNetCore;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 

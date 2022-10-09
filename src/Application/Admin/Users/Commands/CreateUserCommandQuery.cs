@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bogus;
+﻿using Bogus;
 
 
 namespace Admin.Users.Commands
 {
-    public class CreateUserCommandQuery: IRequest<UserDto>
+    public class CreateUserCommandQuery : IRequest<UserDto>
     {
         public string? Username { get; set; }
         public string? Firstname { get; set; }
@@ -37,7 +32,7 @@ namespace Admin.Users.Commands
                 Firstname = command.Firstname,
                 Middlename = command.Middlename,
                 Lastname = command.Lastname,
-                Alias = command.Alias ?? command.Username.Substring(0,3) + DateTime.Now.Millisecond.ToString().Substring(0, 3),
+                Alias = command.Alias ?? command.Username.Substring(0, 3) + DateTime.Now.Millisecond.ToString().Substring(0, 3),
                 Email = command.Email,
                 CreatedDatetime = DateTime.Now,
                 UpdatedDatetime = DateTime.Now,
@@ -66,12 +61,12 @@ namespace Admin.Users.Commands
             };
 
             return userDto;
-        }  
+        }
 
 
         public void Create1000FakeUser(IJiraDbContext context)
         {
-            for(int i = 0; i < 1000; i++)
+            for (int i = 0; i < 1000; i++)
             {
                 var fakeUser = new Faker<User>()
                     .RuleFor(x => x.Id, f => Guid.NewGuid())

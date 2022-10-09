@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MediatR;
-using Jira.Domain.Entities.ProjectManagement;
-using Admin.Common.Interfaces;
-
-namespace Admin.Teams.Commands.CreateTeam
+﻿namespace Admin.Teams.Commands.CreateTeam
 {
-    public class CreateTeamCommand: IRequest<Team>
+    public class CreateTeamCommand : IRequest<Team>
     {
         public string Name { get; set; }
         public string Code { get; set; }
@@ -27,7 +18,7 @@ namespace Admin.Teams.Commands.CreateTeam
 
         public CreateTeamCommandHandler(IJiraDbContext context)
         {
-            _context =  context;
+            _context = context;
         }
         public async Task<Team> Handle(CreateTeamCommand request, CancellationToken cancellationToken)
         {

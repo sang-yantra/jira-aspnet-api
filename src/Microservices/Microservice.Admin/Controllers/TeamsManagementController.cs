@@ -1,10 +1,7 @@
-﻿using Admin.Common;
-using Microsoft.AspNetCore.Mvc;
-using Admin.Teams.Queries;
-using Admin.Teams.Commands;
-using MediatR;
-using Admin.Teams;
+﻿using Admin.Teams;
 using Admin.Teams.Commands.CreateTeam;
+using Admin.Teams.Queries;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Microservice.Admin.Controllers
 {
@@ -55,8 +52,8 @@ namespace Microservice.Admin.Controllers
         }
 
 
-         
-        
+
+
 
     }
 }

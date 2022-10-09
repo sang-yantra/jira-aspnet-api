@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentValidation;
-using Microsoft.EntityFrameworkCore;
+﻿using FluentValidation;
 
 namespace Admin.Teams.Commands.CreateTeam
 {
-    public class CreateTeamCommandValidator: AbstractValidator<CreateTeamCommand>
+    public class CreateTeamCommandValidator : AbstractValidator<CreateTeamCommand>
     {
         private readonly IJiraDbContext _context;
         public CreateTeamCommandValidator(IJiraDbContext context)

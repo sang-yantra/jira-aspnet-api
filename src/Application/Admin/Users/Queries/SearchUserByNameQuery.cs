@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-
-namespace Admin.Users.Queries
+﻿namespace Admin.Users.Queries
 {
-    public class SearchUserByNameQuery: IRequest<List<UserDto>>
+    public class SearchUserByNameQuery : IRequest<List<UserDto>>
     {
         public string Name { get; set; }
     }

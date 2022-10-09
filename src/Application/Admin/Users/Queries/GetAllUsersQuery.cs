@@ -1,22 +1,12 @@
-﻿using Jira.Domain.Entities.ProjectManagement;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Admin.Users.Queries
+﻿namespace Admin.Users.Queries
 {
-    public class GetAllUsersQuery: IRequest<List<UserDto>>
+    public class GetAllUsersQuery : IRequest<List<UserDto>>
     {
-        public string? UserName { get; set; } 
+        public string? UserName { get; set; }
         public string? Email { get; set; }
     }
 
-    public class GetAllUsersQueryHandle: IRequestHandler<GetAllUsersQuery, List<UserDto>>
+    public class GetAllUsersQueryHandle : IRequestHandler<GetAllUsersQuery, List<UserDto>>
     {
         private readonly IJiraDbContext _context;
         public GetAllUsersQueryHandle(IJiraDbContext context)
@@ -27,7 +17,7 @@ namespace Admin.Users.Queries
         {
             IQueryable<User> getUsersQueryWhere;
 
-            if(query.UserName is null && query.Email is null)
+            if (query.UserName is null && query.Email is null)
             {
                 getUsersQueryWhere = _context.Users;
             }
@@ -39,7 +29,7 @@ namespace Admin.Users.Queries
             }
 
 
-            var users = await getUsersQueryWhere                 
+            var users = await getUsersQueryWhere
                             .Select(x => new UserDto()
                             {
                                 Id = x.Id,

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Jira.Supabase.Persistence.Configurations
 {
-    public class PermissionConfig: IEntityTypeConfiguration<Permission>
+    public class PermissionConfig : IEntityTypeConfiguration<Permission>
     {
         public void Configure(EntityTypeBuilder<Permission> builder)
         {

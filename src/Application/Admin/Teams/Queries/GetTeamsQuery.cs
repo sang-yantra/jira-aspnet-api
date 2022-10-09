@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-
-namespace Admin.Teams.Queries
+﻿namespace Admin.Teams.Queries
 {
-    public class GetTeamsQuery: IRequest<List<TeamDto>>
+    public class GetTeamsQuery : IRequest<List<TeamDto>>
     {
     }
 
@@ -22,8 +14,9 @@ namespace Admin.Teams.Queries
 
         public async Task<List<TeamDto>> Handle(GetTeamsQuery request, CancellationToken cancellationToken)
         {
-            return await  _context.Teams
-                .Select(team => new TeamDto() {
+            return await _context.Teams
+                .Select(team => new TeamDto()
+                {
                     Id = team.Id,
                     Name = team.Name,
                     Code = team.Code,

@@ -1,8 +1,7 @@
 ﻿using Admin.Users;
-using Microsoft.AspNetCore.Mvc;
-using MediatR;
-using Admin.Users.Queries;
 using Admin.Users.Commands;
+using Admin.Users.Queries;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Microservice.Admin.Controllers
 {
@@ -31,13 +30,13 @@ namespace Microservice.Admin.Controllers
         /// <returns></returns>
         [HttpGet]
         [ActionName("user/{userId}")]
-        [ProducesResponseType(200, Type =typeof(UserDto))]
+        [ProducesResponseType(200, Type = typeof(UserDto))]
         public async Task<ActionResult<UserDto>> GetUserById([FromRoute] Guid userId)
         {
-            return await Mediator.Send(new GetUserByIdQuery() { UserId = userId});
+            return await Mediator.Send(new GetUserByIdQuery() { UserId = userId });
         }
 
-        
+
 
         /// <summary>
         /// Create a user 

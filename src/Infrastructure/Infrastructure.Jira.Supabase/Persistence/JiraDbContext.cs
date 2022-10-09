@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Admin.Common.Interfaces;
 using Jira.Domain.Entities.ProjectManagement;
-using Npgsql.EntityFrameworkCore.PostgreSQL;
-using Admin.Common.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 namespace Microservice.Admin.Persistence

@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Jira.Domain.Entities.ProjectManagement;
+﻿using Jira.Domain.Entities.ProjectManagement;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Jira.Supabase.Persistence.Configurations
 {
-    internal class TaskInfoConfig: IEntityTypeConfiguration<TaskInfo>
+    internal class TaskInfoConfig : IEntityTypeConfiguration<TaskInfo>
     {
 
         public void Configure(EntityTypeBuilder<TaskInfo> builder)

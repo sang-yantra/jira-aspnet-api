@@ -1,23 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.Serialization;
 
 namespace Common.Exceptions
 {
-    public class DuplicateDataException: Exception
+    public class DuplicateDataException : Exception
     {
         public DuplicateDataException()
         {
 
         }
-        public DuplicateDataException(string message): base(message)
+        public DuplicateDataException(string message) : base(message)
         {
 
         }
-        public DuplicateDataException(string message, Exception innerException): base(message, innerException)
+        public DuplicateDataException(string message, Exception innerException) : base(message, innerException)
         {
 
         }
@@ -28,7 +23,7 @@ namespace Common.Exceptions
             Data["ConflictId"] = conflictId;
         }
 
-        protected DuplicateDataException(SerializationInfo info, StreamingContext context): base(info, context)
+        protected DuplicateDataException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
 
         }

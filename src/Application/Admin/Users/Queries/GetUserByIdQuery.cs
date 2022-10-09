@@ -1,11 +1,4 @@
-﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 using Common.Exceptions;
 
 namespace Admin.Users.Queries
@@ -28,7 +21,8 @@ namespace Admin.Users.Queries
         {
             var user = await _context.Users
                 .Where(x => x.Id == request.UserId)
-                .Select(x => new UserDto() {
+                .Select(x => new UserDto()
+                {
                     Id = x.Id,
                     Username = x.Username,
                     Firstname = x.Firstname,

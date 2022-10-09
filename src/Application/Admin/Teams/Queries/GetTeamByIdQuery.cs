@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-
-namespace Admin.Teams.Queries
+﻿namespace Admin.Teams.Queries
 {
-    public class GetTeamByIdQuery: IRequest<TeamDto>
+    public class GetTeamByIdQuery : IRequest<TeamDto>
     {
         public Guid TeamId { get; set; }
     }
