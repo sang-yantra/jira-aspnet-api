@@ -30,5 +30,6 @@ namespace Jira.Domain.Entities.ProjectManagement
         public virtual Sprint? Sprint { get; set; }
         public virtual Team? Team { get; set; }
         public virtual UserStory? UserStory { get; set; }
+
     }
 }
