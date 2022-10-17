@@ -3,7 +3,7 @@ using Admin.Users.Commands;
 using Admin.Users.Queries;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Microservice.Admin.Controllers
+namespace Microservices.TasksManagement.Controllers
 {
     [ApiVersion("1.0")]
     [ApiController]
