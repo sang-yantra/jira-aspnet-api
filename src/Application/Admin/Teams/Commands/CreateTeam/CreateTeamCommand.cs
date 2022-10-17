@@ -9,12 +9,14 @@
         public string UpdatedBy { get; set; }
         public string LongDescription { get; set; }
         public bool IsActive { get; set; }
+        public string? ImagePath { get; set; }
     }
 
 
     public class CreateTeamCommandHandler : IRequestHandler<CreateTeamCommand, Team>
     {
         private readonly IJiraDbContext _context;
+        private readonly string HANDLE_NULL_IMG_PATH = "/test.jpg";
 
         public CreateTeamCommandHandler(IJiraDbContext context)
         {
@@ -28,6 +30,7 @@
                 Name = request.Name,
                 Code = request.Code,
                 Description = request.Description,
+                ImagePath = request.ImagePath is null? HANDLE_NULL_IMG_PATH : request.ImagePath,
                 CreatedDatetime = DateTime.Now,
                 UpdatedDatetime = DateTime.Now,
                 CreatedBy = request.CreatedBy,
