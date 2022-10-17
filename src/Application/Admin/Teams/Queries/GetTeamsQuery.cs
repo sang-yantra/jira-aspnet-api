@@ -21,6 +21,7 @@
                     Name = team.Name,
                     Code = team.Code,
                     Description = team.Description,
+                    ImagePath = team.ImagePath,
                     CreatedDatetime = team.CreatedDatetime ?? DateTime.Now,
                     CreatedBy = team.CreatedBy,
                     UpdatedDatetime = team.UpdatedDatetime ?? DateTime.Now,
