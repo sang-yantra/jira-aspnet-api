@@ -1,3 +1,4 @@
+using Admin;
 using FluentValidation.AspNetCore;
 using Infrastructure.Jira.Supabase;
 using Microservice.Admin.Persistence;
@@ -59,6 +60,7 @@ services.AddMemoryCache();
 
 
 services.AddJiraInfrastructure(config);
+services.AddAdminServices();
 services.AddTasksServices();
 
 // configure middlewares

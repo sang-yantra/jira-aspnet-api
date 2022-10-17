@@ -3,7 +3,7 @@ using Admin.Teams.Commands.CreateTeam;
 using Admin.Teams.Queries;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Microservice.Admin.Controllers
+namespace Microservices.TasksManagement.Controllers
 {
     [ApiVersion("1.0")]
     [ApiController]
@@ -50,10 +50,5 @@ namespace Microservice.Admin.Controllers
 
             return Created("Uri", team);
         }
-
-
-
-
-
     }
 }

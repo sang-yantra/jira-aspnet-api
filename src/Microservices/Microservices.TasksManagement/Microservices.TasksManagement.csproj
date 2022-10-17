@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Application\Admin\Admin.csproj" />
     <ProjectReference Include="..\..\Application\Tasks\Tasks.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Infrastructure.Jira.Supabase\Infrastructure.Jira.Supabase.csproj" />
   </ItemGroup>
