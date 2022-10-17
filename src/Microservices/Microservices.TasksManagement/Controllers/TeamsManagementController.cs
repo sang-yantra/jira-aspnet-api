@@ -7,7 +7,7 @@ namespace Microservices.TasksManagement.Controllers
 {
     [ApiVersion("1.0")]
     [ApiController]
-    [Route("{v:apiVersion}/[controller]/[action]")]
+    [Route("api/{v:apiVersion}/[controller]/[action]")]
     public class TeamsManagementController : ApiControllerBase
     {
 
