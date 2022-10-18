@@ -1,4 +1,6 @@
-﻿namespace Jira.Domain.Entities.ProjectManagement
+﻿using Jira.Domain.Entities.ChatManagement;
+
+namespace Jira.Domain.Entities.ProjectManagement
 {
     /// <summary>
     /// USER TABLE
@@ -9,6 +11,7 @@
         {
             UserRoleTeams = new HashSet<UserRoleTeam>();
             UserRoles = new HashSet<UserRole>();
+            Chats = new HashSet<Chat>();    
         }
 
         public Guid Id { get; set; }
@@ -27,5 +30,7 @@
 
         public virtual ICollection<UserRoleTeam> UserRoleTeams { get; set; }
         public virtual ICollection<UserRole> UserRoles { get; set; }
+        public virtual ICollection<Chat> Chats { get; set; }
+
     }
 }
