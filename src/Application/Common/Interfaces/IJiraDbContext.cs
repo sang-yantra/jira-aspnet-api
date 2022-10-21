@@ -25,6 +25,6 @@ namespace Common.Interfaces
         DbSet<Chat> Chats { get; set; }
         DbSet<ChatRoom> ChatRooms { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
-
+        
     }
 }

@@ -35,7 +35,7 @@ namespace Chats.Chat.Queries
                     UpdatedBy = x.UpdatedBy,
                     UpdatedDatetime = x.UpdatedDatetime,
                 })
-                .OrderByDescending(x => x.CreatedDatetime)
+                .OrderBy(x => x.CreatedDatetime)
                 .ToListAsync(cancellationToken);
             return chats;
         }
