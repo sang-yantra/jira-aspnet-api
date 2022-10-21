@@ -1,4 +1,5 @@
 ﻿using Common.Interfaces;
+using Jira.Domain.Entities.ChatManagement;
 using Jira.Domain.Entities.ProjectManagement;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
@@ -27,6 +28,8 @@ namespace Microservice.Admin.Persistence
         public virtual DbSet<UserRole> UserRoles { get; set; } = null!;
         public virtual DbSet<UserRoleTeam> UserRoleTeams { get; set; } = null!;
         public virtual DbSet<UserStory> UserStories { get; set; } = null!;
+        public virtual DbSet<Chat> Chats { get; set; } = null!;
+        public virtual DbSet<ChatRoom> ChatRooms { get; set; } = null!;
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {

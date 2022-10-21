@@ -1,8 +1,11 @@
 using Admin;
+using Chats;
 using FluentValidation.AspNetCore;
 using Infrastructure.Jira.Supabase;
 using Microservice.Admin.Persistence;
 using Microservices.TasksManagement.Filters;
+using Microservices.TasksManagement.Middlewares;
+using Microservices.TasksManagement.Sockets;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Tasks;
@@ -47,25 +50,32 @@ services.AddCors(options =>
         ;
     });
 });
-
 services.AddDbContext<JiraDbContext>(options =>
 {
     options.UseNpgsql(config.GetConnectionString("JiraSupabaseDb"));
 });
-
-
-
-
 services.AddMemoryCache();
-
-
 services.AddJiraInfrastructure(config);
 services.AddAdminServices();
 services.AddTasksServices();
+services.AddChatsServices(config);
+services.AddTransient<ConnectionManager>();
+services.AddSingleton<ChatHandler>();
+
+
 
 // configure middlewares
 var app = builder.Build();
-// Configure the HTTP request pipeline.
+
+//var webSocketOptions = new WebSocketOptions()
+//{
+//    KeepAliveInterval = TimeSpan.FromSeconds(120),
+//    ReceiveBufferSize = 4 * 1024
+//};
+
+//app.UseWebSockets(webSocketOptions);
+//var chatHandler = app.Services.GetService<ChatHandler>();
+//app.UseMiddleware<WebSocketMiddleware>(chatHandler);
 
 app.UseCors();
 app.UseRouting();

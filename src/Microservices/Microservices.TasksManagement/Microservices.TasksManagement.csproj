@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>369dacf9-1d47-414b-9032-13cd2381c285</UserSecretsId>
     <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
@@ -11,13 +11,20 @@
 
   <ItemGroup>
 	<PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
+	<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.10" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.10">
+	  <PrivateAssets>all</PrivateAssets>
+	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	</PackageReference>
 	<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
+	<PackageReference Include="PusherServer" Version="4.6.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Application\Admin\Admin.csproj" />
+    <ProjectReference Include="..\..\Application\Chats\Chats.csproj" />
     <ProjectReference Include="..\..\Application\Tasks\Tasks.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Infrastructure.Jira.Supabase\Infrastructure.Jira.Supabase.csproj" />
   </ItemGroup>
