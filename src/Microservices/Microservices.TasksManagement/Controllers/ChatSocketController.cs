@@ -7,6 +7,9 @@ using Chats.Chat.Events;
 using Chats.Chat;
 using MediatR;
 using Chats.Chat.Queries;
+using Chats.Room;
+using Chats.Room.Queries;
+using Chats.Room.Commands;
 
 namespace Microservices.TasksManagement.Controllers
 {
@@ -58,5 +61,62 @@ namespace Microservices.TasksManagement.Controllers
                 return StatusCode(500, ex.Message + ex.StackTrace.ToString());
             }
         }
-    }
+
+        [HttpGet]
+        [ActionName("rooms")]
+        [ProducesResponseType(200, Type = typeof(List<RoomDto>))]
+        public async Task<ActionResult<List<RoomDto>>> GetRooms([FromQuery] GetChatRoomsQuery roomsQuery)
+        {
+            try
+            {
+                return await Mediator.Send<List<RoomDto>>(roomsQuery);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message + ex.StackTrace.ToString());
+
+            }
+        }
+
+        /// <summary>
+        /// Create room
+        /// </summary>
+        /// <example>
+        /// {
+        ///  "title": "new room from swagger",
+        ///  "description": "new room from swagger",
+        ///  "createdBy": "anupmahato033@gmail.com",
+        ///  "updatedBy": "anupmahato033@gmail.com",
+        ///  "chatRoomType": "ROOM",
+        ///  "users": [
+        ///    {
+        ///      "id": "0c898fba-7086-449d-9d5d-463a4025a61e"
+        ///    },
+        ///    {
+        ///      "id": "02547a57-3ee0-43e5-93dc-13422047e22b"
+        ///    }
+        ///  ]
+        ///}
+        /// </example>
+        /// <param name="chatRoom"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ActionName("room")]
+        [ProducesResponseType(200, Type = typeof(List<RoomDto>))]
+        public async Task<ActionResult> CreateRoom([FromBody] CreateChatRoomCommand chatRoom)
+        {
+            try
+            {
+                await Mediator.Send(chatRoom);
+                return Created("/chats","Resource created");
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message + ex.StackTrace.ToString());
+
+            }
+        }
+    } 
 }

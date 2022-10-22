@@ -51,6 +51,11 @@ namespace Infrastructure.Jira.Supabase.Persistence.Configurations
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("UPDATED_DATETIME")
                 .HasDefaultValueSql("now()");
+
+            builder.Property(e => e.ChatRoomType)
+                .HasColumnType("character varying")
+                .HasColumnName("CHAT_ROOM_TYPE")
+                .HasDefaultValueSql("'ROOM'::character varying");
         }
     }
 }

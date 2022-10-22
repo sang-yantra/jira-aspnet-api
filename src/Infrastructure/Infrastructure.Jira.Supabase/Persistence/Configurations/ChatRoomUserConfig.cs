@@ -13,6 +13,9 @@ namespace Infrastructure.Jira.Supabase.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<ChatRoomUser> entity)
         {
+            entity.HasKey(e => new { e.Id, e.ChatRoomId, e.UserId })
+                  .HasName("CHAT_ROOM_USER_pkey");
+
             entity.ToTable("CHAT_ROOM_USER");
 
             entity.HasComment("chat room user association");

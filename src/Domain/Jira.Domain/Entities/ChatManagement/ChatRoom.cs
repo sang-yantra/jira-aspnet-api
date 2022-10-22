@@ -22,6 +22,7 @@ namespace Jira.Domain.Entities.ChatManagement
         public DateTime? UpdatedDatetime { get; set; }
         public string CreatedBy { get; set; }
         public string UpdatedBy { get; set; }
+        public string ChatRoomType { get; set; }
 
         public virtual ICollection<ChatRoomUser> ChatRoomUsers { get; set; }
         public virtual ICollection<Chat> Chats { get; set; }
