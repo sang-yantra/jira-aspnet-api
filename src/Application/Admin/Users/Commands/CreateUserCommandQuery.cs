@@ -13,6 +13,7 @@ namespace Admin.Users.Commands
         public string? Email { get; set; }
         public bool? IsActive { get; set; }
         public bool? IsSuperAdmin { get; set; }
+        public string? Avatar { get; set; }
     }
 
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommandQuery, UserDto>
@@ -40,6 +41,7 @@ namespace Admin.Users.Commands
                 UpdatedBy = "testUser1",
                 IsActive = command.IsActive,
                 IsSuperAdmin = command.IsSuperAdmin,
+                AvatarPath = command.Avatar
             };
 
             _context.Users.Add(user);
@@ -58,6 +60,7 @@ namespace Admin.Users.Commands
                 Email = user.Email,
                 IsActive = user.IsActive,
                 IsSuperAdmin = user.IsSuperAdmin,
+                Avatar = user.AvatarPath
             };
 
             return userDto;
@@ -77,6 +80,7 @@ namespace Admin.Users.Commands
                     .RuleFor(x => x.Email, f => f.Person.Email)
                     .RuleFor(x => x.IsActive, f => true)
                     .RuleFor(x => x.IsSuperAdmin, f => false)
+                    .RuleFor(x => x.AvatarPath, f => f.Internet.Avatar())
                     .RuleFor(x => x.CreatedDatetime, f => DateTime.Now)
                     .RuleFor(x => x.UpdatedDatetime, f => DateTime.Now)
                     .RuleFor(x => x.CreatedBy, f => "testUser1")

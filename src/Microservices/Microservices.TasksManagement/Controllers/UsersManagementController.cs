@@ -10,6 +10,25 @@ namespace Microservices.TasksManagement.Controllers
     [Route("api/{v:apiVersion}/[controller]/[action]")]
     public class UsersManagementController : ApiControllerBase
     {
+
+        [HttpGet]
+        [ActionName("test-update-users")]
+        [ProducesResponseType(200, Type = typeof(List<UserDto>))]
+        public async Task<ActionResult<string>> TestUpdateUsers()
+        {
+            try
+            {
+                return await Mediator.Send(new TestBulkUpdate());
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message + ex.StackTrace.ToString());
+            }
+        }
+
+
+
+
         /// <summary>
         /// Return all users
         /// </summary>
@@ -19,7 +38,15 @@ namespace Microservices.TasksManagement.Controllers
         [ProducesResponseType(200, Type = typeof(List<UserDto>))]
         public async Task<ActionResult<List<UserDto>>> GetAllUsers([FromQuery] GetAllUsersQuery query)
         {
-            return await Mediator.Send(query);
+            try
+            {
+
+                return await Mediator.Send(query);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message + ex.StackTrace.ToString());
+            }
         }
 
 

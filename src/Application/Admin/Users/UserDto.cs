@@ -11,5 +11,6 @@
         public string? Email { get; set; }
         public bool? IsActive { get; set; }
         public bool? IsSuperAdmin { get; set; }
+        public string Avatar { get; set; }
     }
 }

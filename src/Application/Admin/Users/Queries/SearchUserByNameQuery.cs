@@ -27,7 +27,8 @@
                     Alias = x.Alias,
                     Email = x.Email,
                     IsActive = x.IsActive,
-                    IsSuperAdmin = x.IsSuperAdmin
+                    IsSuperAdmin = x.IsSuperAdmin,
+                    Avatar = x.AvatarPath
                 }).ToListAsync(cancellationToken);
 
             return result;

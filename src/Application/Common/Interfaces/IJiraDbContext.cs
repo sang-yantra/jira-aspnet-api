@@ -24,6 +24,7 @@ namespace Common.Interfaces
         DbSet<UserStory> UserStories { get; set; }
         DbSet<Chat> Chats { get; set; }
         DbSet<ChatRoom> ChatRooms { get; set; }
+        DbSet<ChatRoomUser> ChatRoomUsers { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
         
     }

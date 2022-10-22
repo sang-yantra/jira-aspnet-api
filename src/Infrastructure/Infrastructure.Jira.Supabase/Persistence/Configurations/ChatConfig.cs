@@ -29,7 +29,7 @@ namespace Infrastructure.Jira.Supabase.Persistence.Configurations
             builder.Property(e => e.CreatedDatetime)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("CREATED_DATETIME")
-                .HasDefaultValueSql("now()");
+                .HasDefaultValueSql("(now() AT TIME ZONE 'utc'::text)");
 
             builder.Property(e => e.Message)
                 .HasColumnType("character varying")
@@ -42,7 +42,7 @@ namespace Infrastructure.Jira.Supabase.Persistence.Configurations
             builder.Property(e => e.UpdatedDatetime)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("UPDATED_DATETIME")
-                .HasDefaultValueSql("now()");
+                .HasDefaultValueSql("(now() AT TIME ZONE 'utc'::text)");
 
             builder.Property(e => e.UserId).HasColumnName("USER_ID");
 

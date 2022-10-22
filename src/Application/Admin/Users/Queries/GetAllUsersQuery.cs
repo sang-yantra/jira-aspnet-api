@@ -1,4 +1,6 @@
-﻿namespace Admin.Users.Queries
+﻿using Bogus;
+
+namespace Admin.Users.Queries
 {
     public class GetAllUsersQuery : IRequest<List<UserDto>>
     {
@@ -41,8 +43,13 @@
                                 Email = x.Email,
                                 IsActive = x.IsActive,
                                 IsSuperAdmin = x.IsSuperAdmin,
+                                Avatar = x.AvatarPath
 
                             }).ToListAsync(cancellationToken);
+
+
+
+
 
             return users;
         }

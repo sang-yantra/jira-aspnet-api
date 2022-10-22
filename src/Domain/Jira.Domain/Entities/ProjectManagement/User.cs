@@ -11,7 +11,8 @@ namespace Jira.Domain.Entities.ProjectManagement
         {
             UserRoleTeams = new HashSet<UserRoleTeam>();
             UserRoles = new HashSet<UserRole>();
-            Chats = new HashSet<Chat>();    
+            Chats = new HashSet<Chat>();  
+            ChatRoomUsers = new HashSet<ChatRoomUser>();
         }
 
         public Guid Id { get; set; }
@@ -27,10 +28,13 @@ namespace Jira.Domain.Entities.ProjectManagement
         public string? UpdatedBy { get; set; }
         public bool? IsActive { get; set; }
         public bool? IsSuperAdmin { get; set; }
+        public string? AvatarPath { get; set; }
 
         public virtual ICollection<UserRoleTeam> UserRoleTeams { get; set; }
         public virtual ICollection<UserRole> UserRoles { get; set; }
         public virtual ICollection<Chat> Chats { get; set; }
+
+        public virtual ICollection<ChatRoomUser> ChatRoomUsers { get; set; }
 
     }
 }

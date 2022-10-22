@@ -21,6 +21,10 @@ namespace Infrastructure.Jira.Supabase.Persistence.Configurations
                 .HasColumnType("character varying")
                 .HasColumnName("ALIAS");
 
+            builder.Property(e => e.AvatarPath)
+                .HasColumnType("character varying")
+                .HasColumnName("AVATAR_PATH");
+
             builder.Property(e => e.CreatedBy)
                 .HasColumnType("character varying")
                 .HasColumnName("CREATED_BY");

@@ -32,6 +32,7 @@ namespace Admin.Users.Queries
                     Email = x.Email,
                     IsActive = x.IsActive,
                     IsSuperAdmin = x.IsSuperAdmin,
+                    Avatar = x.AvatarPath
 
                 })
                 .FirstOrDefaultAsync(cancellationToken);
