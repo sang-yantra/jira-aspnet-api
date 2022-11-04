@@ -1,5 +1,6 @@
 ﻿using Common.Interfaces;
 using Common.Exceptions;
+using Common.Utilities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -48,6 +49,8 @@ namespace Authentication.Login.Queries
 
             if (user.Username != request.Username || user.Password != request.Password)
             {
+                throw new Exception("Invalid credentials");
+
                 List<ValidationFailure> failures = new List<ValidationFailure>();
                 ValidationFailure usernamefailure = new ValidationFailure(nameof(request.Username), "Invalid username");
                 ValidationFailure passwordFailure = new ValidationFailure(nameof(request.Password), "Invalid password");

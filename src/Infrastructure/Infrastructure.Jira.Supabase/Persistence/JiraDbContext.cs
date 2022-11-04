@@ -31,7 +31,7 @@ namespace Microservice.Admin.Persistence
         public virtual DbSet<Chat> Chats { get; set; } = null!;
         public virtual DbSet<ChatRoom> ChatRooms { get; set; } = null!;
         public virtual DbSet<ChatRoomUser> ChatRoomUsers { get; set; } = null!;
-
+        public virtual DbSet<UserToken> UserTokens { get; set; } = null!;
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {

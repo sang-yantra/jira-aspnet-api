@@ -13,18 +13,14 @@ namespace Microservices.TasksManagement.Controllers
         [ActionName("login")]
         public async Task<ActionResult<TokenResponseDto>> Login([FromBody] LoginPostDto user)
         {
-            try
+                
+            return await Mediator.Send(new GetAccessToken()
             {
-                return await Mediator.Send(new GetAccessToken()
-                {
-                    Username = user.Username,
-                    Password = user.Password
-                });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message + ex.StackTrace.ToString());
-            }
+                Username = user.Username,
+                Password = user.Password
+            });
+            
+
         }
     }
 }

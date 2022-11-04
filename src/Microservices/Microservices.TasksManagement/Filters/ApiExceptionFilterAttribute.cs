@@ -52,7 +52,8 @@ namespace Microservices.TasksManagement.Filters
 
             var details = new ValidationProblemDetails(exception.Errors)
             {
-                Type = "https://google.com"
+                Type = "https://google.com",
+                Detail = exception?.Message
             };
 
             context.Result = new BadRequestObjectResult(details);
@@ -80,7 +81,7 @@ namespace Microservices.TasksManagement.Filters
             {
                 Type = "https://tools.ietf.org/html/rfc7231#section-6.5.4",
                 Title = "The specified resource was not found.",
-                Detail = exception.Message
+                Detail = exception?.Message
             };
 
             context.Result = new NotFoundObjectResult(details);
@@ -124,11 +125,13 @@ namespace Microservices.TasksManagement.Filters
 
         private void HandleUnknownException(ExceptionContext context)
         {
+            var exception = context.Exception as Exception;
             var details = new ProblemDetails
             {
                 Status = StatusCodes.Status500InternalServerError,
                 Title = "An error occurred while processing your request.",
-                Type = "https://tools.ietf.org/html/rfc7231#section-6.6.1"
+                Type = "https://tools.ietf.org/html/rfc7231#section-6.6.1",
+                Detail = exception?.Message
             };
 
             context.Result = new ObjectResult(details)
