@@ -43,6 +43,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chats", "src\Application\Ch
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservices.Chat", "src\Microservices\Microservices.Chat\Microservices.Chat.csproj", "{6E674D1B-7FC5-4EDF-845C-AD88CA317007}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authentication", "src\Application\Authentication\Authentication.csproj", "{A55F7F12-F6FB-4A05-981B-24213BF8F14E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -105,6 +107,10 @@ Global
 		{6E674D1B-7FC5-4EDF-845C-AD88CA317007}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E674D1B-7FC5-4EDF-845C-AD88CA317007}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E674D1B-7FC5-4EDF-845C-AD88CA317007}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A55F7F12-F6FB-4A05-981B-24213BF8F14E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A55F7F12-F6FB-4A05-981B-24213BF8F14E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A55F7F12-F6FB-4A05-981B-24213BF8F14E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A55F7F12-F6FB-4A05-981B-24213BF8F14E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -129,6 +135,7 @@ Global
 		{D4C4DBE8-74B8-4817-9534-B16DA9AC5B1A} = {06560B54-6940-4CDD-81EB-6F9935695208}
 		{44DB0CF0-9690-4638-8626-757D58D43331} = {06560B54-6940-4CDD-81EB-6F9935695208}
 		{6E674D1B-7FC5-4EDF-845C-AD88CA317007} = {1FF0A9DF-A1E3-4087-B2AD-0821E9F87DE0}
+		{A55F7F12-F6FB-4A05-981B-24213BF8F14E} = {06560B54-6940-4CDD-81EB-6F9935695208}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7EAFD9D5-A054-4820-AE6F-CA29162B7C2C}

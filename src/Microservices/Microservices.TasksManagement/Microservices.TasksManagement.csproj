@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Nullable>disable</Nullable>
+    <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>369dacf9-1d47-414b-9032-13cd2381c285</UserSecretsId>
     <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
@@ -26,6 +26,7 @@
     <ProjectReference Include="..\..\Application\Admin\Admin.csproj" />
     <ProjectReference Include="..\..\Application\Chats\Chats.csproj" />
     <ProjectReference Include="..\..\Application\Tasks\Tasks.csproj" />
+    <ProjectReference Include="..\..\Application\Authentication\Authentication.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Infrastructure.Jira.Supabase\Infrastructure.Jira.Supabase.csproj" />
   </ItemGroup>
 

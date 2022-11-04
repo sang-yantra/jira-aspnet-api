@@ -29,6 +29,7 @@ namespace Jira.Domain.Entities.ProjectManagement
         public bool? IsActive { get; set; }
         public bool? IsSuperAdmin { get; set; }
         public string? AvatarPath { get; set; }
+        public string Password { get; set; }
 
         public virtual ICollection<UserRoleTeam> UserRoleTeams { get; set; }
         public virtual ICollection<UserRole> UserRoles { get; set; }

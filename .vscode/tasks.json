@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/Microservices/Microservice.Admin/Microservice.Admin.csproj",
+                "${workspaceFolder}/src/Microservices/Microservices.TasksManagement/Microservices.TasksManagement.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/src/Microservices/Microservice.Admin/Microservice.Admin.csproj",
+                "${workspaceFolder}/src/Microservices/Microservices.TasksManagement/Microservices.TasksManagement.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -33,7 +33,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/src/Microservices/Microservice.Admin/Microservice.Admin.csproj"
+                "${workspaceFolder}/src/Microservices/Microservices.TasksManagement/Microservices.TasksManagement.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

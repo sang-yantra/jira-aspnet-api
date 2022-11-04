@@ -1,4 +1,5 @@
 using Admin;
+using Authentication;
 using Chats;
 using FluentValidation.AspNetCore;
 using Infrastructure.Jira.Supabase;
@@ -59,6 +60,7 @@ services.AddJiraInfrastructure(config);
 services.AddAdminServices();
 services.AddTasksServices();
 services.AddChatsServices(config);
+services.AddAuthenticationServices(config);
 services.AddTransient<ConnectionManager>();
 services.AddSingleton<ChatHandler>();
 
