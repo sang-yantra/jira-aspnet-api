@@ -23,21 +23,35 @@ config.SetBasePath(AppDomain.CurrentDomain.BaseDirectory);
 config.AddJsonFile($"appsettings.json", optional: false, reloadOnChange: true)
     .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
 
+/// <summary>
+/// Api versioning services
+/// </summary>
 services.AddApiVersioning(options =>
 {
     options.ReportApiVersions = true;
     options.DefaultApiVersion = new ApiVersion(1, 0);
     options.AssumeDefaultVersionWhenUnspecified = true;
 });
+
+/// <summary>
+/// controllers services
+/// </summary>
 services.AddControllers(options =>
     options.Filters.Add<ApiExceptionFilterAttribute>());
 
+
+/// <summary>
+/// fluent validation services
+/// </summary>
 services.AddFluentValidationAutoValidation()
-    .AddFluentValidationClientsideAdapters()
-    ;
+    .AddFluentValidationClientsideAdapters();
 
 services.AddSwaggerGen();
 services.AddHttpContextAccessor();
+
+/// <summary>
+/// CORS services
+/// </summary>
 services.AddCors(options =>
 {
     options.AddDefaultPolicy(builder =>
@@ -51,6 +65,13 @@ services.AddCors(options =>
         ;
     });
 });
+
+
+
+
+/// <summary>
+/// setting dbcontext
+/// </summary>
 services.AddDbContext<JiraDbContext>(options =>
 {
     options.UseNpgsql(config.GetConnectionString("JiraSupabaseDb"));

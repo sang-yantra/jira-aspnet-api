@@ -17,8 +17,4 @@
     <PackageReference Include="Respawn" Version="6.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Microservices\Microservice.Admin\Microservice.Admin.csproj" />
-  </ItemGroup>
-
 </Project>
