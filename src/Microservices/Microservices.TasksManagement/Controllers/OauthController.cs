@@ -4,9 +4,8 @@ using Authentication.Login.Queries;
 
 namespace Microservices.TasksManagement.Controllers
 {
-    [ApiVersion("1.0")]
     [ApiController]
-    [Route("api/{v:apiVersion}/[controller]/[action]")]
+    [Route("api/[controller]/[action]")]
     public class OauthController : ApiControllerBase
     {
         [HttpPost]

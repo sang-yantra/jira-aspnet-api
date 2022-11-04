@@ -7,8 +7,12 @@ using Microservice.Admin.Persistence;
 using Microservices.TasksManagement.Filters;
 using Microservices.TasksManagement.Middlewares;
 using Microservices.TasksManagement.Sockets;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.Net.Http.Headers;
 using Tasks;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -105,6 +109,7 @@ app.UseRouting();
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 app.UseEndpoints(endpoints => endpoints.MapControllers());
 

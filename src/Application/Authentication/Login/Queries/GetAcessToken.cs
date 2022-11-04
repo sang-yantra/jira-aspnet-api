@@ -57,15 +57,22 @@ namespace Authentication.Login.Queries
                 throw new Common.Exceptions.ValidationException(failures);
             }
 
+            DateTime tokenIssuedAt = DateTime.UtcNow;
+            long tokenIssuedAtUnix = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+
             /// @research
             var authClaims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, request.Username),
+                new Claim(JwtRegisteredClaimNames.Iat, tokenIssuedAtUnix.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
             var token = GenerateToken(authClaims);
             var refreshToken = GenerateRefreshToken();
+
+            AddJwtCookie();
+
             var tokenResponse = new TokenResponseDto()
             {
                 access_token = new JwtSecurityTokenHandler().WriteToken(token),
@@ -109,6 +116,15 @@ namespace Authentication.Login.Queries
             using var rng = RandomNumberGenerator.Create();
             rng.GetBytes(randomNumber);
             return Convert.ToBase64String(randomNumber);
+        }
+
+        /// <summary>
+        /// Add jwt cookie to the response
+        /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
+        private void AddJwtCookie()
+        {
+            throw new NotImplementedException();
         }
     }
 
