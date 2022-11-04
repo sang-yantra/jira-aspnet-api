@@ -67,7 +67,6 @@ namespace Infrastructure.Jira.Supabase.Persistence.Configurations
                 .HasColumnType("character varying")
                 .HasColumnName("USERNAME");
 
-
             builder.Property(e => e.Password)
                 .HasColumnType("character varying")
                 .HasColumnName("PASSWORD");
