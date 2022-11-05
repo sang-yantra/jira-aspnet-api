@@ -1,15 +1,10 @@
 ﻿using Jira.Domain.Entities.ChatManagement;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Jira.Supabase.Persistence.Configurations
 {
-    public class ChatRoomUserConfig: IEntityTypeConfiguration<ChatRoomUser>
+    public class ChatRoomUserConfig : IEntityTypeConfiguration<ChatRoomUser>
     {
         public void Configure(EntityTypeBuilder<ChatRoomUser> entity)
         {

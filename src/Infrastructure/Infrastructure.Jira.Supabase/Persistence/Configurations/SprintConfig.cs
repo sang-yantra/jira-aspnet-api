@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Jira.Supabase.Persistence.Configurations
 {
-    public class SprintConfig: IEntityTypeConfiguration<Sprint>
+    public class SprintConfig : IEntityTypeConfiguration<Sprint>
     {
         public void Configure(EntityTypeBuilder<Sprint> builder)
         {

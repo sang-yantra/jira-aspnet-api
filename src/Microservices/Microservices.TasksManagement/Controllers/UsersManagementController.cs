@@ -1,10 +1,12 @@
 ﻿using Admin.Users;
 using Admin.Users.Commands;
 using Admin.Users.Queries;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Microservices.TasksManagement.Controllers
 {
+    [Authorize]
     [ApiVersion("1.0")]
     [ApiController]
     [Route("api/{v:apiVersion}/[controller]/[action]")]

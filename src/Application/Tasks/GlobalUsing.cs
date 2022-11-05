@@ -1,4 +1,3 @@
-﻿global using Jira.Domain.Entities.ProjectManagement;
+﻿global using Common.Interfaces;
 global using MediatR;
 global using Microsoft.EntityFrameworkCore;
-global using Common.Interfaces;

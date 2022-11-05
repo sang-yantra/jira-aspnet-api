@@ -1,9 +1,4 @@
 ﻿using Admin.Users;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Chats.Room
 {
@@ -14,7 +9,7 @@ namespace Chats.Room
         public string Description { get; set; }
         public string ImagePath { get; set; }
         public DateTime? CreatedDatetime { get; set; }
-        public DateTime? UpdatedDatetime { get; set; }  
+        public DateTime? UpdatedDatetime { get; set; }
         public string CreatedBy { get; set; }
         public string UpdatedBy { get; set; }
         public string ChatRoomType { get; set; }

@@ -11,7 +11,7 @@ namespace Jira.Domain.Entities.ProjectManagement
         {
             UserRoleTeams = new HashSet<UserRoleTeam>();
             UserRoles = new HashSet<UserRole>();
-            Chats = new HashSet<Chat>();  
+            Chats = new HashSet<Chat>();
             ChatRoomUsers = new HashSet<ChatRoomUser>();
             UserTokens = new HashSet<UserToken>();
         }

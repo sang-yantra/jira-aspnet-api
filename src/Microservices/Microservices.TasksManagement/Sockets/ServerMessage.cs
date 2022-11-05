@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Microservices.TasksManagement.Sockets
+﻿namespace Microservices.TasksManagement.Sockets
 {
     public class ServerMessage
     {

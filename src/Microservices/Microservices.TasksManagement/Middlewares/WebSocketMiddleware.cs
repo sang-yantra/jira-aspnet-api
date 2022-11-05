@@ -1,16 +1,6 @@
 ﻿using Microservices.TasksManagement.Sockets;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net.WebSockets;
-using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Microservices.TasksManagement.Middlewares
 {
@@ -27,7 +17,7 @@ namespace Microservices.TasksManagement.Middlewares
 
         public async Task Invoke(HttpContext context)
         {
-            if(context.Request.Path == "/chat-raw")
+            if (context.Request.Path == "/chat-raw")
             {
                 if (!context.WebSockets.IsWebSocketRequest)
                 {
@@ -60,7 +50,7 @@ namespace Microservices.TasksManagement.Middlewares
                 });
             }
 
-            
+
         }
 
         private async Task HandleDisconnect(WebSocket socket)
@@ -105,10 +95,10 @@ namespace Microservices.TasksManagement.Middlewares
         {
             try
             {
-                 
+
                 return JsonSerializer.Deserialize<ClientMessage>(str);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Console.WriteLine($"Error: invalid message format");
                 return null;

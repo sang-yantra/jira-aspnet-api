@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Jira.Domain.Entities.ChatManagement
+﻿namespace Jira.Domain.Entities.ChatManagement
 {
     /// <summary>
     /// table for chat room

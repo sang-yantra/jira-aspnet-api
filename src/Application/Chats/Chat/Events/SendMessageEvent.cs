@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Chats.Chat.Queries;
-using Chats.Configuration;
+﻿using Chats.Configuration;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using PusherServer;
-using Jira.Domain.Entities.ChatManagement;
 
 namespace Chats.Chat.Events
 {
-    public class SendMessageEvent: IRequest<ChatDto>
+    public class SendMessageEvent : IRequest<ChatDto>
     {
         public Guid ChannelId { get; set; }
         public string Event { get; set; }
@@ -31,7 +23,7 @@ namespace Chats.Chat.Events
         public SendMessageEventHandler(IConfiguration configuration, IJiraDbContext context, PusherConfiguration pusherConfiguration)
         {
             _configuration = configuration;
-            _context = context; 
+            _context = context;
             _pusherConfig = pusherConfiguration;
         }
 
@@ -94,7 +86,7 @@ namespace Chats.Chat.Events
                 CreatedDatetime = createdDatTime,
                 UpdatedDatetime = createdDatTime,
                 CreatedBy = chat.UserName,
-                UpdatedBy = chat.UserName,  
+                UpdatedBy = chat.UserName,
             };
 
             return chatDto;

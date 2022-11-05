@@ -9,7 +9,7 @@ namespace Microservices.TasksManagement.Controllers
     [Route("api/{v:apiVersion}/[controller]/[action]")]
     public class TasksManagementController : ApiControllerBase
     {
-       
+
         [HttpGet]
         [ActionName("tasksKanban/{teamId}")]
         public async Task<ActionResult<List<TasksKanbanDto>>> GetTasksKanban([FromRoute] Guid teamId)
@@ -17,6 +17,6 @@ namespace Microservices.TasksManagement.Controllers
             teamId = new Guid("159f154d-cb13-445a-a107-f74cd6507beb");
             return await Mediator.Send(new GetTasksQuery() { TeamId = teamId });
         }
-        
+
     }
 }

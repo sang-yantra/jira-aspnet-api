@@ -1,6 +1,4 @@
 ﻿using Jira.Domain.Entities.ProjectManagement;
-using System;
-using System.Collections.Generic;
 
 namespace Jira.Domain.Entities.ChatManagement
 {

@@ -1,15 +1,10 @@
 ﻿using Jira.Domain.Entities.ProjectManagement;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Jira.Supabase.Persistence.Configurations
 {
-    internal class UserTokenConfig: IEntityTypeConfiguration<UserToken>
+    internal class UserTokenConfig : IEntityTypeConfiguration<UserToken>
     {
         public void Configure(EntityTypeBuilder<UserToken> entity)
         {

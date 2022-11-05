@@ -3,7 +3,9 @@ using Authentication;
 using Chats;
 using FluentValidation.AspNetCore;
 using Infrastructure.Jira.Supabase;
+using Jira.Domain;
 using Microservice.Admin.Persistence;
+using Microservices.TasksManagement;
 using Microservices.TasksManagement.Filters;
 using Microservices.TasksManagement.Middlewares;
 using Microservices.TasksManagement.Sockets;
@@ -23,21 +25,46 @@ config.SetBasePath(AppDomain.CurrentDomain.BaseDirectory);
 config.AddJsonFile($"appsettings.json", optional: false, reloadOnChange: true)
     .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
 
+/// <summary>
+/// Api versioning services
+/// </summary>
 services.AddApiVersioning(options =>
 {
     options.ReportApiVersions = true;
     options.DefaultApiVersion = new ApiVersion(1, 0);
     options.AssumeDefaultVersionWhenUnspecified = true;
 });
+
+/// <summary>
+/// setting app version
+/// </summary>
+services.AddTransient((_) => {
+    var appVersion = config.GetSection("Version").Value;
+    return new AppVersion()
+    {
+        Version = appVersion,
+    };
+});
+
+/// <summary>
+/// controllers services
+/// </summary>
 services.AddControllers(options =>
     options.Filters.Add<ApiExceptionFilterAttribute>());
 
+
+/// <summary>
+/// fluent validation services
+/// </summary>
 services.AddFluentValidationAutoValidation()
-    .AddFluentValidationClientsideAdapters()
-    ;
+    .AddFluentValidationClientsideAdapters();
 
 services.AddSwaggerGen();
 services.AddHttpContextAccessor();
+
+/// <summary>
+/// CORS services
+/// </summary>
 services.AddCors(options =>
 {
     options.AddDefaultPolicy(builder =>
@@ -51,6 +78,13 @@ services.AddCors(options =>
         ;
     });
 });
+
+
+
+
+/// <summary>
+/// setting dbcontext
+/// </summary>
 services.AddDbContext<JiraDbContext>(options =>
 {
     options.UseNpgsql(config.GetConnectionString("JiraSupabaseDb"));
@@ -63,8 +97,6 @@ services.AddChatsServices(config);
 services.AddAuthenticationServices(config);
 services.AddTransient<ConnectionManager>();
 services.AddSingleton<ChatHandler>();
-
-
 
 // configure middlewares
 var app = builder.Build();
@@ -84,6 +116,8 @@ app.UseRouting();
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseHttpsRedirection();
+app.UseAppAunthentication();
+app.UseAuthentication();
 app.UseAuthorization();
 app.UseEndpoints(endpoints => endpoints.MapControllers());
 

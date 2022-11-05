@@ -30,7 +30,7 @@
                 Name = request.Name,
                 Code = request.Code,
                 Description = request.Description,
-                ImagePath = request.ImagePath is null? HANDLE_NULL_IMG_PATH : request.ImagePath,
+                ImagePath = request.ImagePath is null ? HANDLE_NULL_IMG_PATH : request.ImagePath,
                 CreatedDatetime = DateTime.Now,
                 UpdatedDatetime = DateTime.Now,
                 CreatedBy = request.CreatedBy,
