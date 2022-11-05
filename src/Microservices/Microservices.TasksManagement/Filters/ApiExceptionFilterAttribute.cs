@@ -125,7 +125,7 @@ namespace Microservices.TasksManagement.Filters
 
         private void HandleUnknownException(ExceptionContext context)
         {
-            var exception = context.Exception as Exception;
+            var exception = context.Exception;
             var details = new ProblemDetails
             {
                 Status = StatusCodes.Status500InternalServerError,

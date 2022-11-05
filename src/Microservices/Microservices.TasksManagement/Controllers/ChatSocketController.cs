@@ -1,15 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Net.WebSockets;
-using System.Text;
-using PusherServer;
-using System.Net;
+﻿using Chats.Chat;
 using Chats.Chat.Events;
-using Chats.Chat;
-using MediatR;
 using Chats.Chat.Queries;
 using Chats.Room;
-using Chats.Room.Queries;
 using Chats.Room.Commands;
+using Chats.Room.Queries;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Microservices.TasksManagement.Controllers
 {
@@ -42,7 +37,7 @@ namespace Microservices.TasksManagement.Controllers
 
         [HttpGet]
         [ActionName("chats/{roomId}")]
-        public async Task<ActionResult<List<ChatDto>>> GetChats([FromRoute] string roomId= "5d6e437b-a493-4042-973a-85248b018050")
+        public async Task<ActionResult<List<ChatDto>>> GetChats([FromRoute] string roomId = "5d6e437b-a493-4042-973a-85248b018050")
         {
             return await Mediator.Send(new GetChatsOfRoom() { RoomId = new Guid(roomId) });
         }
@@ -56,7 +51,7 @@ namespace Microservices.TasksManagement.Controllers
             {
                 return await Mediator.Send(chatevent);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(500, ex.Message + ex.StackTrace.ToString());
             }
@@ -109,7 +104,7 @@ namespace Microservices.TasksManagement.Controllers
             try
             {
                 await Mediator.Send(chatRoom);
-                return Created("/chats","Resource created");
+                return Created("/chats", "Resource created");
 
             }
             catch (Exception ex)
@@ -118,5 +113,5 @@ namespace Microservices.TasksManagement.Controllers
 
             }
         }
-    } 
+    }
 }

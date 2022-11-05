@@ -1,11 +1,6 @@
 ﻿using Jira.Domain.Entities.ChatManagement;
 using Jira.Domain.Entities.ProjectManagement;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Common.Interfaces
 {
@@ -27,6 +22,6 @@ namespace Common.Interfaces
         DbSet<ChatRoomUser> ChatRoomUsers { get; set; }
         DbSet<UserToken> UserTokens { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
-        
+
     }
 }

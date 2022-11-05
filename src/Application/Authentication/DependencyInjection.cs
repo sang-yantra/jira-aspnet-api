@@ -1,17 +1,13 @@
 ﻿using FluentValidation;
 using MediatR;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.Net.Http.Headers;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Net.Http.Headers;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.IdentityModel.Tokens;
 
 namespace Authentication
 {
@@ -52,12 +48,12 @@ namespace Authentication
             {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                        ValidateIssuer = true,
-                        ValidIssuer = jwtAuthSettings.Issuer,
-                        ValidateAudience = true,
-                        ValidAudience = jwtAuthSettings.Audience,
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtAuthSettings.Key))
+                    ValidateIssuer = true,
+                    ValidIssuer = jwtAuthSettings.Issuer,
+                    ValidateAudience = true,
+                    ValidAudience = jwtAuthSettings.Audience,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtAuthSettings.Key))
 
                 };
             });

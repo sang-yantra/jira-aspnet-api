@@ -1,6 +1,4 @@
-﻿using Bogus;
-
-namespace Admin.Users.Queries
+﻿namespace Admin.Users.Queries
 {
     public class GetAllUsersQuery : IRequest<List<UserDto>>
     {

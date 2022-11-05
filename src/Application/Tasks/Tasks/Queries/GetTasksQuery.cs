@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Tasks.Tasks.Queries
+﻿namespace Tasks.Tasks.Queries
 {
-    public class GetTasksQuery: IRequest<List<TasksKanbanDto>>
+    public class GetTasksQuery : IRequest<List<TasksKanbanDto>>
     {
         public Guid TeamId { get; set; }
 
@@ -14,7 +8,7 @@ namespace Tasks.Tasks.Queries
 
     }
 
-    public class GetTasksQueryHandler: IRequestHandler<GetTasksQuery, List<TasksKanbanDto>>
+    public class GetTasksQueryHandler : IRequestHandler<GetTasksQuery, List<TasksKanbanDto>>
     {
         private readonly IJiraDbContext _context;
 
@@ -64,8 +58,8 @@ namespace Tasks.Tasks.Queries
                                      join user in _context.Users
                                         on usertask.UserId equals user.Id
                                      select new
-                                     { 
-                                         UserId = user.Id, 
+                                     {
+                                         UserId = user.Id,
                                          Username = user.Username
                                      };
 
@@ -74,7 +68,7 @@ namespace Tasks.Tasks.Queries
             getTasksKanbanan.ForEach(x =>
             {
                 x.TaskUsername = getUserDetailsInfo.FirstOrDefault(y => y.UserId == x.TaskUserId)?.Username;
-                x.UserStoryUsername = getUserDetailsInfo.FirstOrDefault(y => y.UserId==x.UserStoryUserId)?.Username;
+                x.UserStoryUsername = getUserDetailsInfo.FirstOrDefault(y => y.UserId == x.UserStoryUserId)?.Username;
 
             });
 

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microservices.TasksManagement.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microservices.TasksManagement.Entities;
 
 namespace Microservices.TasksManagement.Persistence
 {

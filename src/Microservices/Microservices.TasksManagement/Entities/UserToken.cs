@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Microservices.TasksManagement.Entities
+﻿namespace Microservices.TasksManagement.Entities
 {
     /// <summary>
     /// token managmenr for user

@@ -5,14 +5,9 @@ using FluentValidation.AspNetCore;
 using Infrastructure.Jira.Supabase;
 using Microservice.Admin.Persistence;
 using Microservices.TasksManagement.Filters;
-using Microservices.TasksManagement.Middlewares;
 using Microservices.TasksManagement.Sockets;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.Net.Http.Headers;
 using Tasks;
 
 var builder = WebApplication.CreateBuilder(args);
