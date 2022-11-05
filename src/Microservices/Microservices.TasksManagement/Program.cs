@@ -3,8 +3,11 @@ using Authentication;
 using Chats;
 using FluentValidation.AspNetCore;
 using Infrastructure.Jira.Supabase;
+using Jira.Domain;
 using Microservice.Admin.Persistence;
+using Microservices.TasksManagement;
 using Microservices.TasksManagement.Filters;
+using Microservices.TasksManagement.Middlewares;
 using Microservices.TasksManagement.Sockets;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +33,17 @@ services.AddApiVersioning(options =>
     options.ReportApiVersions = true;
     options.DefaultApiVersion = new ApiVersion(1, 0);
     options.AssumeDefaultVersionWhenUnspecified = true;
+});
+
+/// <summary>
+/// setting app version
+/// </summary>
+services.AddTransient((_) => {
+    var appVersion = config.GetSection("Version").Value;
+    return new AppVersion()
+    {
+        Version = appVersion,
+    };
 });
 
 /// <summary>
@@ -84,8 +98,6 @@ services.AddAuthenticationServices(config);
 services.AddTransient<ConnectionManager>();
 services.AddSingleton<ChatHandler>();
 
-
-
 // configure middlewares
 var app = builder.Build();
 
@@ -104,6 +116,7 @@ app.UseRouting();
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseHttpsRedirection();
+app.UseAppAunthentication();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseEndpoints(endpoints => endpoints.MapControllers());

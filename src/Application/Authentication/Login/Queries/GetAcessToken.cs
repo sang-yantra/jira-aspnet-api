@@ -2,6 +2,7 @@
 using Common.Interfaces;
 using Common.Utilities;
 using FluentValidation.Results;
+using Jira.Domain;
 using Jira.Domain.Entities.ProjectManagement;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -33,9 +34,10 @@ namespace Authentication.Login.Queries
         private readonly long _accessTokenExpiresAtUnix;
         private readonly DateTime _refreshTokenExpiresAt;
         private readonly long _refereshTokenExpiresAtUnix;
+        private readonly string APP_VERSION;
 
         public GetAccessTokenHandler(IJiraDbContext context, IHttpContextAccessor httpContext,
-            JwtAuthenticationSettings jwtAuthSettings)
+            JwtAuthenticationSettings jwtAuthSettings, AppVersion appVersion)
         {
             _context = context;
             _httpContext = httpContext.HttpContext;
@@ -44,7 +46,7 @@ namespace Authentication.Login.Queries
             _refreshTokenExpiresAt = DateTime.UtcNow.AddDays(1);
             _accessTokenExpiresAtUnix = ((DateTimeOffset)_accessTokenExpiresAt).ToUnixTimeMilliseconds();
             _refereshTokenExpiresAtUnix = ((DateTimeOffset)_refreshTokenExpiresAt).ToUnixTimeMilliseconds();
-
+            APP_VERSION = appVersion.Version;
         }
         public async Task<TokenResponseDto> Handle(GetAccessToken request, CancellationToken cancellationToken)
         {
@@ -71,13 +73,14 @@ namespace Authentication.Login.Queries
             }
 
             /// Get tokens deom db
+
             TokenResponseDto tokenResponseDto = new TokenResponseDto();
             var userToken = await _context.UserTokens.Where(x => x.UserId == user.Id)
                     .FirstOrDefaultAsync(cancellationToken);
 
             if (userToken == null)
             {
-                tokenResponseDto = await CreateAndSaveTokenAsync(user.Id, user.Username, cancellationToken);
+                tokenResponseDto = await CreateAndSaveTokenAsync(user, user.Username, cancellationToken);
             }
             else
             {
@@ -88,7 +91,7 @@ namespace Authentication.Login.Queries
                     AddJwtCookie(user.Username, tokenResponseDto.access_token, tokenResponseDto.refresh_token);
                     return tokenResponseDto;
                 }
-                tokenResponseDto = await CreateAndUpdateTokenAsync(userToken, user.Username, cancellationToken);
+                tokenResponseDto = await CreateAndUpdateTokenAsync(user, userToken, user.Username, cancellationToken);
             }
             return tokenResponseDto;
         }
@@ -100,19 +103,38 @@ namespace Authentication.Login.Queries
         /// <param name="username"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task<TokenResponseDto> CreateAndSaveTokenAsync(Guid userId, string username, CancellationToken cancellationToken)
+        public async Task<TokenResponseDto> CreateAndSaveTokenAsync(User user, string username, CancellationToken cancellationToken)
         {
-            var authClaims = new List<Claim>
+            var issuedAtUnixTime = ((DateTimeOffset)DateTime.Now).ToUnixTimeMilliseconds().ToString();
+            JwtClaim accessTokenJwtClaim = new JwtClaim()
             {
-                new Claim(ClaimTypes.Name, username),
-                new Claim(JwtRegisteredClaimNames.Iat, _accessTokenExpiresAt.ToString()),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                Jti = Guid.NewGuid().ToString(),
+                UserId = user.Id.ToString(),
+                Name = user.Username,
+                Email = user.Email,
+                Iat = issuedAtUnixTime,
+                Nbf = issuedAtUnixTime,
+                Exp = _accessTokenExpiresAtUnix.ToString(),
+                Version = APP_VERSION
             };
-            JwtSecurityToken accessJwtToken = GenerateToken(authClaims, _accessTokenExpiresAt);
-            JwtSecurityToken refreshJwtToken = GenerateToken(authClaims, _refreshTokenExpiresAt);
-            string accessToken = new JwtSecurityTokenHandler().WriteToken(accessJwtToken);
-            string refreshToken = new JwtSecurityTokenHandler().WriteToken(refreshJwtToken);
-            await SaveUserToken(userId, accessToken, _accessTokenExpiresAtUnix,
+
+            JwtClaim refreshTokenJwtClaim = new JwtClaim()
+            {
+                Jti = Guid.NewGuid().ToString(),
+                UserId = user.Id.ToString(),
+                Name = user.Username,
+                Email = user.Email,
+                Iat = issuedAtUnixTime,
+                Nbf = issuedAtUnixTime,
+                Exp = _refereshTokenExpiresAtUnix.ToString(),
+                Version = APP_VERSION
+            };
+
+            var accessTokenClaims = TokenServices.CreateClaims(accessTokenJwtClaim);
+            var refreshTokenClaims = TokenServices.CreateClaims(refreshTokenJwtClaim);
+            string accessToken = TokenServices.CreateToken(accessTokenClaims, _accessTokenExpiresAt, _jwtAuthSettinngs);
+            string refreshToken = TokenServices.CreateToken(refreshTokenClaims, _refreshTokenExpiresAt, _jwtAuthSettinngs);
+            await SaveUserToken(user.Id, accessToken, _accessTokenExpiresAtUnix,
                                 refreshToken, _refereshTokenExpiresAtUnix,
                                 cancellationToken
                                 );
@@ -133,19 +155,37 @@ namespace Authentication.Login.Queries
         /// <param name="username"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task<TokenResponseDto> CreateAndUpdateTokenAsync(UserToken userToken, string username, CancellationToken cancellationToken)
+        public async Task<TokenResponseDto> CreateAndUpdateTokenAsync(User user,UserToken userToken, string username, CancellationToken cancellationToken)
         {
-            var authClaims = new List<Claim>
+            var issuedAtUnixTime = ((DateTimeOffset)DateTime.Now).ToUnixTimeMilliseconds().ToString();
+            JwtClaim accessTokenJwtClaim = new JwtClaim()
             {
-                new Claim(ClaimTypes.Name, username),
-                new Claim(JwtRegisteredClaimNames.Iat, _accessTokenExpiresAt.ToString()),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                Jti = Guid.NewGuid().ToString(),
+                UserId = user.Id.ToString(),
+                Name = user.Username,
+                Email = user.Email,
+                Iat = issuedAtUnixTime,
+                Nbf = issuedAtUnixTime,
+                Exp = _accessTokenExpiresAtUnix.ToString(),
+                Version = APP_VERSION
             };
 
-            JwtSecurityToken accessJwtToken = GenerateToken(authClaims, _accessTokenExpiresAt);
-            JwtSecurityToken refreshJwtToken = GenerateToken(authClaims, _refreshTokenExpiresAt);
-            string accessToken = new JwtSecurityTokenHandler().WriteToken(accessJwtToken);
-            string refreshToken = new JwtSecurityTokenHandler().WriteToken(refreshJwtToken);
+            JwtClaim refreshTokenJwtClaim = new JwtClaim()
+            {
+                Jti = Guid.NewGuid().ToString(),
+                UserId = user.Id.ToString(),
+                Name = user.Username,
+                Email = user.Email,
+                Iat = issuedAtUnixTime,
+                Nbf = issuedAtUnixTime,
+                Exp = _refereshTokenExpiresAtUnix.ToString(),
+                Version = APP_VERSION
+            };
+
+            var accessTokenClaims = TokenServices.CreateClaims(accessTokenJwtClaim);
+            var refreshTokenClaims = TokenServices.CreateClaims(refreshTokenJwtClaim);
+            string accessToken = TokenServices.CreateToken(accessTokenClaims, _accessTokenExpiresAt, _jwtAuthSettinngs);
+            string refreshToken = TokenServices.CreateToken(refreshTokenClaims, _refreshTokenExpiresAt, _jwtAuthSettinngs);
             await UpdateUserToken(userToken, accessToken, _accessTokenExpiresAtUnix,
                                 refreshToken, _refereshTokenExpiresAtUnix,
                                 cancellationToken

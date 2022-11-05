@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Microservices.TasksManagement.Controllers
 {
     [ApiController]
-    [Route("api/[controller]/[action]")]
+    [Route("api/[action]")]
     public class OauthController : ApiControllerBase
     {
         [HttpPost]
