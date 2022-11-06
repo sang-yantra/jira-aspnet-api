@@ -17,6 +17,7 @@ COPY ["src/Domain/Jira.Domain/Jira.Domain.csproj", "src/Domain/Jira.Domain/"]
 COPY ["src/Application/Tasks/Tasks.csproj", "src/Application/Tasks/"]
 COPY ["src/Infrastructure/Infrastructure.Jira.Supabase/Infrastructure.Jira.Supabase.csproj", "src/Infrastructure/Infrastructure.Jira.Supabase/"]
 COPY ["src/Application/Chats/Chats.csproj", "src/Application/Chats/"]
+COPY ["src/Application/Authentication/Authentication.csproj", "src/Application/Authentication/"]
 RUN dotnet restore "src/Microservices/Microservices.TasksManagement/Microservices.TasksManagement.csproj"
 COPY . .
 WORKDIR "/src/src/Microservices/Microservices.TasksManagement"
