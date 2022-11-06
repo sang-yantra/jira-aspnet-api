@@ -70,9 +70,10 @@ services.AddCors(options =>
     options.AddDefaultPolicy(builder =>
     {
         var allowedOrigins = config.GetSection("AllowedOrigins").Get<string[]>();
+        string[] methods = { "GET", "POST", "PUT", "DELETE" };
         builder.WithOrigins(allowedOrigins)
         .SetIsOriginAllowedToAllowWildcardSubdomains()
-        .AllowAnyMethod()
+        .WithMethods(methods)
         .AllowAnyHeader()
         .AllowCredentials()
         ;

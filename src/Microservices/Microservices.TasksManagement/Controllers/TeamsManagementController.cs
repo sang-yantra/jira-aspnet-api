@@ -1,10 +1,12 @@
 ﻿using Admin.Teams;
 using Admin.Teams.Commands.CreateTeam;
 using Admin.Teams.Queries;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Microservices.TasksManagement.Controllers
 {
+    [Authorize]
     [ApiVersion("1.0")]
     [ApiController]
     [Route("api/{v:apiVersion}/[controller]/[action]")]

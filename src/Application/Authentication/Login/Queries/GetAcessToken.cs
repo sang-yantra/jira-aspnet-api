@@ -248,9 +248,21 @@ namespace Authentication.Login.Queries
 
             var principal = new ClaimsPrincipal(identity);
             _httpContext.Response.Cookies.Append("access_token", encryptAccessToken,
-                new CookieOptions() { HttpOnly = true, SameSite = SameSiteMode.Strict });
-            _httpContext.Response.Cookies.Append("refresh_oken", encryptRefreshToken,
-                new CookieOptions() { HttpOnly = true, SameSite = SameSiteMode.Strict });
+                new CookieOptions() { 
+                    HttpOnly=false, 
+                    SameSite = SameSiteMode.None,
+                    Secure = true,
+                    Expires = DateTimeOffset.Now.AddHours(1) 
+                });
+
+            _httpContext.Response.Cookies.Append("refresh_token", encryptRefreshToken,
+                new CookieOptions()
+                {
+                    HttpOnly = false,
+                    SameSite = SameSiteMode.None,
+                    Secure = true,
+                    Expires = DateTimeOffset.Now.AddHours(1)
+                });
 
         }
 
