@@ -50,6 +50,11 @@ namespace Microservices.TasksManagement.Controllers
             return await Mediator.Send(new GetATaskQuery() { Id = taskId });
         }
 
+        /// <summary>
+        /// Update a task
+        /// </summary>
+        /// <param name="updateTaskCommand"></param>
+        /// <returns></returns>
         [HttpPut]
         [ActionName("task")]
         [ProducesResponseType(200, Type = typeof(TasksInfoDto))]
@@ -58,9 +63,24 @@ namespace Microservices.TasksManagement.Controllers
             return await Mediator.Send(updateTaskCommand);
         }
 
+        /// <summary>
+        /// update the status of a task
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        [HttpPatch]
+        [ActionName("task")]
+        [ProducesResponseType(200, Type = typeof(TasksInfoDto))]
+        public async Task<ActionResult> UpdateStatusTask([FromQuery] Guid id, [FromQuery] string status)
+        {
+            await Mediator.Send(new UpdateTaskStatus() { Id = id, Status = status });
+            return NoContent();
+        }
+
 
         /// <summary>
-        /// Get a task
+        /// Delete a task
         /// </summary>
         /// <param name="taskId"></param>
         /// <returns></returns>
