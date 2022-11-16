@@ -23,7 +23,7 @@ namespace Tasks.Tasks.Queries
 
         public async Task<TasksInfoDto> Handle(GetATaskQuery request, CancellationToken cancellationToken)
         {
-            TasksInfoDto tasksInfoDto = null;
+            TasksInfoDto tasksInfoDto;
 
             var task = await _context.TaskInfos.Where(x => x.Id == request.Id)
                 .FirstOrDefaultAsync(cancellationToken);
@@ -35,24 +35,24 @@ namespace Tasks.Tasks.Queries
 
             tasksInfoDto = new TasksInfoDto()
             {
-                Id = request.Id,
-                Title = task.Title,
-                Description = task.Description,
+                Id              = request.Id,
+                Title           = task.Title,
+                Description     = task.Description,
                 AcceptanceCriteria = task.AcceptanceCriteria,
-                Nfr = task.Nfr,
-                Status = task.Status,
-                Priority = task.Priority,
+                Nfr             = task.Nfr,
+                Status          = task.Status,
+                Priority        = task.Priority,
                 OriginalEstimate = task.OriginalEstimate,
-                Completed = task.Completed,
-                Remaining = task.Remaining,
+                Completed       = task.Completed,
+                Remaining       = task.Remaining,
                 CreatedDatetime = task.CreatedDatetime,
-                CreatedBy = task.CreatedBy,
+                CreatedBy       = task.CreatedBy,
                 UpdatedDatetime = task.UpdatedDatetime,
-                UpdatedBy = task.UpdatedBy,
-                TeamId = task.TeamId,
-                SprintId = task.SprintId,
-                UserStoryId = task.UserStoryId,
-                UserId = task.UserId,
+                UpdatedBy       = task.UpdatedBy,
+                TeamId          = task.TeamId,
+                SprintId        = task.SprintId,
+                UserStoryId     = task.UserStoryId,
+                UserId          = task.UserId,
             };
 
             return tasksInfoDto;

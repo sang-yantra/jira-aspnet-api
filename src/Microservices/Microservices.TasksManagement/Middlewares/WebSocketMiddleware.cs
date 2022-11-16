@@ -50,6 +50,9 @@ namespace Microservices.TasksManagement.Middlewares
                 });
             }
 
+            await _next.Invoke(context);
+            return;
+
 
         }
 
