@@ -80,5 +80,14 @@ namespace Microservices.TasksManagement.Controllers
             var response = await Mediator.Send(command);
             return Created("uri", response);
         }
+
+        [HttpDelete]
+        [ActionName("user")]
+        
+        public async Task<ActionResult> DeleteUser([FromQuery] DeleteUserCommand usrDel)
+        {
+            await Mediator.Send(usrDel);
+            return NoContent();
+        }
     }
 }
