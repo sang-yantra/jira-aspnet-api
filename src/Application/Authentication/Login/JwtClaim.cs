@@ -1,17 +1,10 @@
-﻿using Jira.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Authentication.Login
+﻿namespace Authentication.Login
 {
     /// <summary>
     /// Claims for jwt token
     /// </summary>
     public class JwtClaim
-    { 
+    {
 
         /// <summary>
         /// JWT token Guid

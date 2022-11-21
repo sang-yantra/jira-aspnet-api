@@ -43,7 +43,7 @@ namespace Authentication
             {
                 options.LoginPath = "/login";
                 options.ExpireTimeSpan = TimeSpan.FromDays(1);
-                
+
             })
             .AddJwtBearer(options =>
             {

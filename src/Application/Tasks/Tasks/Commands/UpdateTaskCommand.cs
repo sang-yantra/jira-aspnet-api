@@ -1,13 +1,8 @@
 ﻿using Common.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Tasks.Tasks.Commands
 {
-    public class UpdateTaskCommand: IRequest<TasksInfoDto>
+    public class UpdateTaskCommand : IRequest<TasksInfoDto>
     {
         public Guid Id { get; set; }
         public string? Title { get; set; }
@@ -35,7 +30,7 @@ namespace Tasks.Tasks.Commands
         {
             var task = await _context.TaskInfos.FirstOrDefaultAsync(x => x.Id == request.Id);
 
-            if(task == null)
+            if (task == null)
             {
                 throw new DataNotFoundException("Invalid TaskId" + request.Id);
             }
@@ -45,7 +40,7 @@ namespace Tasks.Tasks.Commands
                 && x.GetValue(request) != null
                 );
 
-            foreach(var property in properties)
+            foreach (var property in properties)
             {
                 var task_prop = task.GetType().GetProperty(property.Name);
                 task_prop.SetValue(task, property.GetValue(request));
@@ -74,7 +69,7 @@ namespace Tasks.Tasks.Commands
                 SprintId = task.SprintId,
                 UserStoryId = task.UserStoryId,
                 UserId = task.UserId,
-            }; 
+            };
         }
     }
 }

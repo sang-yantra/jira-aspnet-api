@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Common.Exceptions;
+﻿using Common.Exceptions;
 
 namespace Admin.Users.Commands
 {
-    public class DeleteUserCommand:IRequest
+    public class DeleteUserCommand : IRequest
     {
         public Guid UserId { get; set; }
     }
@@ -22,7 +17,7 @@ namespace Admin.Users.Commands
         public async Task<Unit> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
         {
             var userInfo = await _context.Users.Where(x => x.Id == request.UserId).FirstOrDefaultAsync(cancellationToken);
-           if (userInfo == null)
+            if (userInfo == null)
             {
                 throw new DataNotFoundException("User Not Found");
             }

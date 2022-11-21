@@ -1,13 +1,8 @@
 ﻿using Jira.Domain.Entities.ProjectManagement;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Tasks.Tasks.Commands
 {
-    public class CreateTaskCommand: IRequest<TasksInfoDto>
+    public class CreateTaskCommand : IRequest<TasksInfoDto>
     {
         public string? Title { get; set; }
         public string? Description { get; set; }
@@ -79,7 +74,7 @@ namespace Tasks.Tasks.Commands
                 SprintId = task.SprintId,
                 UserStoryId = task.UserStoryId,
                 UserId = task.UserId,
-            };           
+            };
         }
     }
 }

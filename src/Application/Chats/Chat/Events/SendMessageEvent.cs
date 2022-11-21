@@ -82,7 +82,7 @@ namespace Chats.Chat.Events
                 ChatRoomId = chat.ChatRoomId,
                 UserId = chat.UserId,
                 UserName = chat.UserName,
-                Avatar = request.SenderAvatar,  
+                Avatar = request.SenderAvatar,
                 Message = chat.Message,
                 CreatedDatetime = createdDatTime,
                 UpdatedDatetime = createdDatTime,

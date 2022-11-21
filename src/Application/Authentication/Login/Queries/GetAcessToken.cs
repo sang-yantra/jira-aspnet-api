@@ -153,7 +153,7 @@ namespace Authentication.Login.Queries
         /// <param name="username"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task<TokenResponseDto> CreateAndUpdateTokenAsync(User user,UserToken userToken, string username, CancellationToken cancellationToken)
+        public async Task<TokenResponseDto> CreateAndUpdateTokenAsync(User user, UserToken userToken, string username, CancellationToken cancellationToken)
         {
             var issuedAtUnixTime = ((DateTimeOffset)DateTime.Now).ToUnixTimeMilliseconds().ToString();
             JwtClaim accessTokenJwtClaim = new JwtClaim()
@@ -245,11 +245,12 @@ namespace Authentication.Login.Queries
 
             var principal = new ClaimsPrincipal(identity);
             _httpContext.Response.Cookies.Append("access_token", encryptAccessToken,
-                new CookieOptions() { 
-                    HttpOnly=false, 
+                new CookieOptions()
+                {
+                    HttpOnly = false,
                     SameSite = SameSiteMode.None,
                     Secure = true,
-                    Expires = DateTimeOffset.Now.AddHours(1) 
+                    Expires = DateTimeOffset.Now.AddHours(1)
                 });
 
             _httpContext.Response.Cookies.Append("refresh_token", encryptRefreshToken,

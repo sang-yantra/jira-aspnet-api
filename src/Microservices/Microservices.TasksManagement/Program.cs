@@ -5,7 +5,6 @@ using FluentValidation.AspNetCore;
 using Infrastructure.Jira.Supabase;
 using Jira.Domain;
 using Microservice.Admin.Persistence;
-using Microservices.TasksManagement;
 using Microservices.TasksManagement.Filters;
 using Microservices.TasksManagement.Middlewares;
 using Microservices.TasksManagement.Sockets;
@@ -38,7 +37,8 @@ services.AddApiVersioning(options =>
 /// <summary>
 /// setting app version
 /// </summary>
-services.AddTransient((_) => {
+services.AddTransient((_) =>
+{
     var appVersion = config.GetSection("Version").Value;
     return new AppVersion()
     {

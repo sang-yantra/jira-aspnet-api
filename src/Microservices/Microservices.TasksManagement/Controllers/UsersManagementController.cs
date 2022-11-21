@@ -83,7 +83,7 @@ namespace Microservices.TasksManagement.Controllers
 
         [HttpDelete]
         [ActionName("user")]
-        
+
         public async Task<ActionResult> DeleteUser([FromQuery] DeleteUserCommand usrDel)
         {
             await Mediator.Send(usrDel);

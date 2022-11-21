@@ -15,9 +15,9 @@ namespace Microservices.TasksManagement.Controllers
         /// </summary>
         /// <param name="teamId"></param>
         /// <returns></returns>
-        [HttpGet] 
+        [HttpGet]
         [ActionName("{teamId}/tasks")]
-        [ProducesResponseType(200, Type=typeof(List<TasksKanbanDto>))]
+        [ProducesResponseType(200, Type = typeof(List<TasksKanbanDto>))]
         public async Task<ActionResult<List<TasksKanbanDto>>> GetTasksKanban([FromRoute] Guid teamId)
         {
             teamId = new Guid("159f154d-cb13-445a-a107-f74cd6507beb");
