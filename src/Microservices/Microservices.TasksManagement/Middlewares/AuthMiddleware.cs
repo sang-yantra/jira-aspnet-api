@@ -14,11 +14,12 @@ namespace Microservices.TasksManagement.Middlewares
                     var jwtAuthenticationSettings = app.ApplicationServices.GetService<JwtAuthenticationSettings>();
                     var allcookies = context.Request.Cookies;
                     var accesstokenEncrypted = allcookies["access_token"];
+                    string accesstoken = "";
                     if (!String.IsNullOrEmpty(accesstokenEncrypted))
                     {
-                        var accesstoken = AppUtilities.DecryptString(accesstokenEncrypted, jwtAuthenticationSettings.Key);
-                        context.Request.Headers["Authorization"] = "Bearer " + accesstoken;
+                        accesstoken = AppUtilities.DecryptString(accesstokenEncrypted, jwtAuthenticationSettings.Key);
                     }
+                    context.Request.Headers["Authorization"] = "Bearer " + accesstoken;
                 }
                 await next(context);
             });

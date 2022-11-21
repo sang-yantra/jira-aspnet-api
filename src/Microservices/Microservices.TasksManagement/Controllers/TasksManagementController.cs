@@ -69,8 +69,8 @@ namespace Microservices.TasksManagement.Controllers
         /// <param name="id"></param>
         /// <param name="status"></param>
         /// <returns></returns>
-        [HttpPatch]
-        [ActionName("task")]
+        [HttpPut]
+        [ActionName("task-status")]
         [ProducesResponseType(200, Type = typeof(TasksInfoDto))]
         public async Task<ActionResult> UpdateStatusTask([FromQuery] Guid id, [FromQuery] string status)
         {

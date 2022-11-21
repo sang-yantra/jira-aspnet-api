@@ -9,10 +9,9 @@ namespace Chats.Chat.Events
         public Guid ChannelId { get; set; }
         public string Event { get; set; }
         public string Message { get; set; }
-
         public Guid SenderId { get; set; }
         public string SenderUsername { get; set; }
-
+        public string SenderAvatar { get; set; }
     }
 
     public class SendMessageEventHandler : IRequestHandler<SendMessageEvent, ChatDto>
@@ -53,6 +52,7 @@ namespace Chats.Chat.Events
                   chatRoomId = request.ChannelId,
                   userId = request.SenderId,
                   userName = request.SenderUsername,
+                  avatar = request.SenderAvatar,
                   message = request.Message,
                   createdDatetime = createdDatTime,
                   updatedDatetime = createdDatTime,
@@ -82,6 +82,7 @@ namespace Chats.Chat.Events
                 ChatRoomId = chat.ChatRoomId,
                 UserId = chat.UserId,
                 UserName = chat.UserName,
+                Avatar = request.SenderAvatar,  
                 Message = chat.Message,
                 CreatedDatetime = createdDatTime,
                 UpdatedDatetime = createdDatTime,

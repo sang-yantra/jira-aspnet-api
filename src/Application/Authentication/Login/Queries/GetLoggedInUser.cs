@@ -16,7 +16,7 @@ using System.Text;
 
 namespace Authentication.Login.Queries
 {
-    public class GetAccessToken : IRequest<TokenResponseDto>
+    public class GetLoggedInUser : IRequest<LoggedInUserDto>
     {
         [Required(ErrorMessage = "User Name is required")]
         public string Username { get; set; }
@@ -25,7 +25,7 @@ namespace Authentication.Login.Queries
         public string Password { get; set; }
     }
 
-    public class GetAccessTokenHandler : IRequestHandler<GetAccessToken, TokenResponseDto>
+    public class GetLoggedInUserHandler : IRequestHandler<GetLoggedInUser, LoggedInUserDto>
     {
         private readonly IJiraDbContext _context;
         private readonly HttpContext _httpContext;
@@ -36,7 +36,7 @@ namespace Authentication.Login.Queries
         private readonly long _refereshTokenExpiresAtUnix;
         private readonly string APP_VERSION;
 
-        public GetAccessTokenHandler(IJiraDbContext context, IHttpContextAccessor httpContext,
+        public GetLoggedInUserHandler(IJiraDbContext context, IHttpContextAccessor httpContext,
             JwtAuthenticationSettings jwtAuthSettings, AppVersion appVersion)
         {
             _context = context;
@@ -48,7 +48,7 @@ namespace Authentication.Login.Queries
             _refereshTokenExpiresAtUnix = ((DateTimeOffset)_refreshTokenExpiresAt).ToUnixTimeMilliseconds();
             APP_VERSION = appVersion.Version;
         }
-        public async Task<TokenResponseDto> Handle(GetAccessToken request, CancellationToken cancellationToken)
+        public async Task<LoggedInUserDto> Handle(GetLoggedInUser request, CancellationToken cancellationToken)
         {
             var user = await _context.Users.Where(x => x.Username == request.Username)
             .FirstOrDefaultAsync(cancellationToken);
@@ -73,26 +73,35 @@ namespace Authentication.Login.Queries
             }
 
             /// Get tokens deom db
-
-            TokenResponseDto tokenResponseDto = new TokenResponseDto();
             var userToken = await _context.UserTokens.Where(x => x.UserId == user.Id)
                     .FirstOrDefaultAsync(cancellationToken);
 
             if (userToken == null)
             {
-                tokenResponseDto = await CreateAndSaveTokenAsync(user, user.Username, cancellationToken);
+                await CreateAndSaveTokenAsync(user, user.Username, cancellationToken);
             }
             else
             {
                 if (IsValidToken(userToken.AccessTokenExpired) && IsValidToken(userToken.RefreshTokenExpired))
                 {
-                    tokenResponseDto.access_token = userToken.AccessToken;
-                    tokenResponseDto.refresh_token = userToken.RefreshToken;
-                    return tokenResponseDto;
+                    AddJwtCookie(user.Username, userToken.AccessToken, userToken.RefreshToken);
                 }
-                tokenResponseDto = await CreateAndUpdateTokenAsync(user, userToken, user.Username, cancellationToken);
+                else
+                {
+                    await CreateAndUpdateTokenAsync(user, userToken, user.Username, cancellationToken);
+                }
             }
-            return tokenResponseDto;
+            return new LoggedInUserDto()
+            {
+                Id = user.Id,
+                Username = user.Username,
+                Firstname = user.Firstname,
+                Middlename = user.Middlename,
+                Lastname = user.Lastname,
+                Alias = user.Alias,
+                Email = user.Email,
+                Avatar = user.AvatarPath
+            };
         }
 
         /// <summary>
@@ -102,7 +111,7 @@ namespace Authentication.Login.Queries
         /// <param name="username"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task<TokenResponseDto> CreateAndSaveTokenAsync(User user, string username, CancellationToken cancellationToken)
+        public async Task CreateAndSaveTokenAsync(User user, string username, CancellationToken cancellationToken)
         {
             var issuedAtUnixTime = ((DateTimeOffset)DateTime.Now).ToUnixTimeMilliseconds().ToString();
             JwtClaim accessTokenJwtClaim = new JwtClaim()
@@ -137,13 +146,8 @@ namespace Authentication.Login.Queries
                                 refreshToken, _refereshTokenExpiresAtUnix,
                                 cancellationToken
                                 );
+            AddJwtCookie(username, accessToken, refreshToken);
 
-            var tokenResponse = new TokenResponseDto()
-            {
-                access_token = accessToken,
-                refresh_token = refreshToken,
-            };
-            return tokenResponse;
         }
 
         /// <summary>
@@ -153,7 +157,7 @@ namespace Authentication.Login.Queries
         /// <param name="username"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task<TokenResponseDto> CreateAndUpdateTokenAsync(User user,UserToken userToken, string username, CancellationToken cancellationToken)
+        public async Task CreateAndUpdateTokenAsync(User user,UserToken userToken, string username, CancellationToken cancellationToken)
         {
             var issuedAtUnixTime = ((DateTimeOffset)DateTime.Now).ToUnixTimeMilliseconds().ToString();
             JwtClaim accessTokenJwtClaim = new JwtClaim()
@@ -188,13 +192,7 @@ namespace Authentication.Login.Queries
                                 refreshToken, _refereshTokenExpiresAtUnix,
                                 cancellationToken
                                 );
-
-            var tokenResponse = new TokenResponseDto()
-            {
-                access_token = accessToken,
-                refresh_token = refreshToken,
-            };
-            return tokenResponse;
+            AddJwtCookie(username, accessToken, refreshToken);
         }
 
         /// <summary>
